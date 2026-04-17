@@ -4,11 +4,11 @@
 
 <header id="cs-navigation">
     <div class="cs-container">
-        <a href="/" class="cs-logo" aria-label="Deep Sea Digital Home">
-            <span style="font-weight: 900; font-size: 1.5rem; color: var(--headerColor); letter-spacing: -1px; text-transform: uppercase;">
-                DEEP SEA <span style="color: var(--primary);">DIGITAL</span>
-            </span>
-        </a>
+        <a href="/" class="cs-logo" aria-label="Deep Sea Digital Home" style="text-decoration: none;">
+    <span style="font-weight: 900; font-size: 1.5rem; color: #ffffff; letter-spacing: -1px; text-transform: uppercase; text-decoration: none; display: inline-block; line-height: 1;">
+        DEEP SEA <span style="color: #007bff !important; text-decoration: none !important;">DIGITAL</span>
+    </span>
+</a>
         <nav class="cs-nav" aria-label="main navigation">
             <button class="cs-toggle" id="cs-toggle" aria-expanded="false" aria-controls="cs-ul-wrapper" aria-label="mobile menu toggle" aria-haspopup="menu">
                 <span class="cs-box" aria-hidden="true">
@@ -20,38 +20,22 @@
             <div class="cs-ul-wrapper" id="cs-ul-wrapper" inert>
                 <ul id="cs-expanded" class="cs-ul">
                     <li class="cs-li">
-                        <a href="/" class="cs-li-link {% if page.url == '/' %} cs-active {% endif %}" {% if page.url == '/' %} aria-current="page" {% endif %}>
-                            Home
-                        </a>
+                        <a href="/" class="cs-li-link {% if page.url == '/' %} cs-active {% endif %}">Home</a>
                     </li>
                     <li class="cs-li">
-                        <a href="/about/" class="cs-li-link {% if page.url == '/about/' %} cs-active {% endif %}" {% if page.url == '/about/' %} aria-current="page" {% endif %}>
-                            About
-                        </a>
-                    </li>
-                    <li class="cs-li cs-dropdown">
-                        <button class="cs-li-link cs-dropdown-toggle {% if page.url == '/pricing/' or page.url == '/reviews/' %} cs-active {% endif %}" aria-haspopup="menu" aria-expanded="false" id="services-dropdown-toggle">
-                            Services
-                            <img class="cs-drop-icon" src="/assets/svgs/dropdown.svg" alt="" width="15" height="15" decoding="async" aria-hidden="true">
-                        </button>
-                        <ul class="cs-drop-ul" aria-labelledby="services-dropdown-toggle">
-                            <li class="cs-drop-li">
-                                <a href="/pricing/" class="cs-li-link cs-drop-link">Pricing Plans</a>
-                            </li>
-                            <li class="cs-drop-li">
-                                <a href="/reviews/" class="cs-li-link cs-drop-link">Client Reviews</a>
-                            </li>
-                        </ul>
+                        <a href="/about/" class="cs-li-link {% if page.url == '/about/' %} cs-active {% endif %}">About</a>
                     </li>
                     <li class="cs-li">
-                        <a href="/blog/" class="cs-li-link {% if page.url == '/blog/' %} cs-active {% endif %}" {% if page.url == '/blog/' %} aria-current="page" {% endif %}>
-                            Blog
-                        </a>
+                        <a href="/pricing/" class="cs-li-link {% if page.url == '/pricing/' %} cs-active {% endif %}">Pricing</a>
+                    </li>
+                    <li class="cs-li">
+                        <a href="/reviews/" class="cs-li-link {% if page.url == '/reviews/' %} cs-active {% endif %}">Reviews</a>
+                    </li>
+                    <li class="cs-li">
+                        <a href="/blog/" class="cs-li-link {% if page.url == '/blog/' %} cs-active {% endif %}">Blog</a>
                     </li>
                     <li class="cs-li cs-hide-on-desktop">
-                        <a href="/contact/" class="cs-li-link {% if page.url == '/contact/' %} cs-active {% endif %}" {% if page.url == '/contact/' %} aria-current="page" {% endif %}>
-                            Contact
-                        </a>
+                        <a href="/contact/" class="cs-li-link {% if page.url == '/contact/' %} cs-active {% endif %}">Contact</a>
                     </li>
                 </ul>
             </div>

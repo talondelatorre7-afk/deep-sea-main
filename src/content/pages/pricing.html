@@ -1,6 +1,6 @@
 ---
-title: "Transparent Pricing Plans | Deep Sea Digital"
-description: "Choose the depth of your digital presence. From $0 down WaaS models to full-scale cinema-grade productions in Chino Hills."
+title: "Pricing Plans | Deep Sea Digital"
+description: "High-performance web design and cinema-grade media pricing for Chino Hills businesses."
 permalink: "/pricing/"
 ---
 
@@ -9,11 +9,16 @@ permalink: "/pricing/"
 {% block head %}
     <link rel="stylesheet" href="/assets/css/local.css">
     <style>
-        /* Pricing Page Specific Styling */
         #pricing-page {
             padding: var(--sectionPadding);
-            background-color: var(--bodyTextColorWhite);
+            background-color: var(--bodyTextColorWhite); /* Off-white in light mode */
+            transition: background-color 0.3s;
         }
+        /* Dark Mode Adjustment for Section Background */
+        body.dark-mode #pricing-page {
+            background-color: var(--dark);
+        }
+
         .pricing-grid {
             display: flex;
             flex-wrap: wrap;
@@ -21,6 +26,7 @@ permalink: "/pricing/"
             gap: 2rem;
             margin-top: 3rem;
         }
+
         .price-card {
             background: #fff;
             padding: 3rem 2rem;
@@ -32,12 +38,22 @@ permalink: "/pricing/"
             display: flex;
             flex-direction: column;
             border: 1px solid #eef;
+            transition: background 0.3s, transform 0.3s;
         }
+
+        /* Dark Mode Adjustment for Cards */
+        body.dark-mode .price-card {
+            background: var(--medium);
+            border-color: var(--accent);
+            box-shadow: none;
+        }
+
         .price-card.featured {
             border: 2px solid var(--primary);
             transform: scale(1.05);
             position: relative;
         }
+
         .badge {
             position: absolute;
             top: -15px;
@@ -51,12 +67,35 @@ permalink: "/pricing/"
             font-weight: 700;
             text-transform: uppercase;
         }
+
         .price-name { font-weight: 900; font-size: 1.5rem; color: var(--headerColor); margin-bottom: 0.5rem; }
+        body.dark-mode .price-name { color: var(--bodyTextColorWhite); }
+
         .price-amount { font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: 1rem; }
         .price-amount span { font-size: 1rem; color: var(--bodyTextColor); font-weight: 400; }
-        .price-list { list-style: none; padding: 0; margin: 2rem 0; flex-grow: 1; }
+        body.dark-mode .price-amount span { color: var(--bodyTextColorWhite); }
+
+        .price-list { list-style: none; padding: 0; margin: 2rem 0; flex-grow: 1; text-align: left; }
         .price-list li { margin-bottom: 1rem; color: var(--bodyTextColor); display: flex; align-items: center; gap: 0.5rem; }
+        body.dark-mode .price-list li { color: var(--bodyTextColorWhite); }
         .price-list li::before { content: '✓'; color: var(--primary); font-weight: 900; }
+
+        /* Add-on Styling */
+        .add-on-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            flex: 1;
+            max-width: 450px;
+            text-align: left;
+            border: 1px solid #eef;
+            transition: background 0.3s;
+        }
+        body.dark-mode .add-on-card {
+            background: var(--medium);
+            border-color: var(--accent);
+            color: var(--bodyTextColorWhite);
+        }
     </style>
 {% endblock %}
 
@@ -65,70 +104,61 @@ permalink: "/pricing/"
     <div class="cs-container" style="max-width: 1280px; margin: auto; text-align: center;">
         <span class="cs-topper" style="color: var(--primary); display: block; font-weight: 700; margin-bottom: 1rem;">Investment Tiers</span>
         <h1 class="cs-title">Choose Your Depth</h1>
-        <p class="cs-text" style="max-width: 700px; margin: auto;">Transparent, no-nonsense pricing designed to scale with your business. All plans include our signature performance-first custom code.</p>
-
+        
         <div class="pricing-grid">
             <div class="price-card">
                 <span class="price-name">Essentials</span>
                 <div class="price-amount">$175<span>/mo</span></div>
-                <p>High-performance custom code for brands with existing media.</p>
                 <ul class="price-list">
                     <li>Custom Design & Dev</li>
                     <li>Unlimited Edits</li>
                     <li>Hosting & Security</li>
                     <li>Client-Provided Media</li>
-                    <li>Under 1s Load Speed</li>
                 </ul>
-                <a href="/contact/" class="cs-button-solid" style="width: 100%;">Get Started</a>
+                <a href="/contact/" class="cs-button-solid">Get Started</a>
             </div>
 
             <div class="price-card featured">
                 <div class="badge">Most Popular</div>
                 <span class="price-name">Cinema Suite</span>
                 <div class="price-amount">$500<span>setup</span></div>
-                <p>The total digital overhaul. We film the content, we build the engine.</p>
                 <ul class="price-list">
                     <li><strong>4K Cinema Shoot Included</strong></li>
                     <li>Everything in Essentials</li>
                     <li><strong>$175/mo Recurring</strong></li>
                     <li>Social Media Content Cuts</li>
-                    <li>Professional Storytelling</li>
                 </ul>
-                <a href="/contact/" class="cs-button-solid" style="width: 100%;">Scale Now</a>
+                <a href="/contact/" class="cs-button-solid">Scale Now</a>
             </div>
 
             <div class="price-card">
                 <span class="price-name">Lump Sum</span>
                 <div class="price-amount">$3,000<span>upfront</span></div>
-                <p>Full ownership for established enterprises and large projects.</p>
                 <ul class="price-list">
                     <li>Complete Code Handover</li>
                     <li>$25/mo Maintenance</li>
                     <li>Custom Scale Strategy</li>
-                    <li>Client-Provided Media</li>
                     <li>LIFETIME Code Access</li>
                 </ul>
-                <a href="/contact/" class="cs-button-solid" style="width: 100%;">Full Ownership</a>
+                <a href="/contact/" class="cs-button-solid">Full Ownership</a>
+            </div>
+        </div>
+
+        <div class="add-ons" style="margin-top: 5rem;">
+            <h2 class="cs-title" style="font-size: 2rem; margin-bottom: 2rem;">Agency Add-Ons</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+                <div class="add-on-card">
+                    <h3 style="color: var(--primary);">Additional Production Days</h3>
+                    <p>Book an extra 4K Cinema Day for a content refresh or special event.</p>
+                    <span style="display: block; margin-top: 1rem; font-weight: 900;">$500 / session</span>
+                </div>
+                <div class="add-on-card">
+                    <h3 style="color: var(--primary);">Social Media Cut</h3>
+                    <p>3 high-impact Reels/TikToks optimized for engagement from your shoot.</p>
+                    <span style="display: block; margin-top: 1rem; font-weight: 900;">$250 / 3-pack</span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="add-ons" style="margin-top: 5rem; text-align: center;">
-    <h2 class="cs-title" style="font-size: 2rem;">Agency Add-Ons</h2>
-    <div class="add-on-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 2rem;">
-        
-        <div class="add-on-card" style="background: #fff; padding: 2rem; border-radius: 1rem; flex: 1; max-width: 450px; text-align: left; border: 1px solid #eef;">
-            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Additional Production Days</h3>
-            <p style="font-size: 0.9rem; color: var(--bodyTextColor);">Need a content refresh for a new season or menu? Book an extra 4K Cinema Day to keep your visuals sharp.</p>
-            <span style="display: block; margin-top: 1rem; font-weight: 900; font-size: 1.25rem; color: var(--headerColor);">$500 <span style="font-weight: 400; font-size: 0.9rem;">/ per session</span></span>
-        </div>
-
-        <div class="add-on-card" style="background: #fff; padding: 2rem; border-radius: 1rem; flex: 1; max-width: 450px; text-align: left; border: 1px solid #eef;">
-            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Social Media Cut</h3>
-            <p style="font-size: 0.9rem; color: var(--bodyTextColor);">We’ll take the raw 4K footage from your shoot and produce 3 high-impact Reels/TikToks optimized for engagement.</p>
-            <span style="display: block; margin-top: 1rem; font-weight: 900; font-size: 1.25rem; color: var(--headerColor);">$250 <span style="font-weight: 400; font-size: 0.9rem;">/ 3-pack</span></span>
-        </div>
-
-    </div>
-</div>
 </section>
 {% endblock %}

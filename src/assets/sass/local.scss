@@ -568,3 +568,30 @@
         }
     }
 }
+/* Force Deep Sea Digital Logo Colors */
+body.dark-mode {
+    #cs-navigation {
+        .cs-logo {
+            color: #ffffff !important;
+            span {
+                color: #ffffff !important;
+                /* This targets the 'DIGITAL' span inside the 'DEEP SEA' span */
+                span {
+                    color: #007bff !important;
+                }
+            }
+        }
+    }
+}
+/* Remove underlines everywhere for the logo */
+#cs-navigation {
+    .cs-logo {
+        text-decoration: none !important;
+        &:hover {
+            text-decoration: none !important;
+        }
+        span {
+            text-decoration: none !important;
+        }
+    }
+}

@@ -8,7 +8,13 @@ permalink: "/contact/"
 
 {% block head %}
     <link rel="stylesheet" href="/assets/css/contact.css">
-    {% endblock %}
+    <style>
+        /* This hides the honeypot field from humans but lets Netlify see it */
+        .hidden {
+            display: none;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
 
@@ -16,6 +22,8 @@ permalink: "/contact/"
         <div class="cs-container">
             <span class="cs-int-title">Start the Revolution</span>
             <div class="cs-breadcrumbs">
+                <a href="/" class="cs-link">Home</a>
+                <a href="/contact/" class="cs-link cs-active">Contact Us</a>
             </div>
         </div>
         <picture class="cs-background">
@@ -33,18 +41,23 @@ permalink: "/contact/"
                         We only take on a limited number of clients per month to ensure every site gets the cinema-grade attention it deserves. Tell us about your business, and we'll reach out to schedule your free 4K media audit.
                     </p>
                 </div>
-                <form id="cs-form-265" name="Contact Form" method="post">
+
+                <form id="cs-form-265" name="Contact Form" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <p class="hidden">
+                        <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                    </p>
+
                     <label>
                         Name
                         <input required type="text" id="name-265" name="name" placeholder="Full Name">
                     </label>
                     <label>
                         Email
-                        <input required type="text" id="email-265" name="email" placeholder="Email Address">
+                        <input required type="email" id="email-265" name="email" placeholder="Email Address">
                     </label>
                     <label>
                         Phone
-                        <input required type="text" id="phone-265" name="phone" placeholder="Phone Number">
+                        <input required type="tel" id="phone-265" name="phone" placeholder="Phone Number">
                     </label>
                     <label>
                         Business Type
@@ -57,11 +70,14 @@ permalink: "/contact/"
                     <button class="cs-button-solid cs-submit" type="submit">Submit My Request</button>
                 </form>
             </div>
+
             <div class="cs-right-section">
                 <span class="cs-header">Email</span>
                 <a class="cs-link" href="mailto:{{ client.email }}">{{ client.email }}</a>
+                
                 <span class="cs-header">Text or Call</span>
                 <a class="cs-link" href="tel:{{ client.phoneForTel }}">{{ client.phoneFormatted }}</a>
+                
                 <span class="cs-header">Based In</span>
                 <p class="cs-link">
                     Chino, California <br>

@@ -10,31 +10,13 @@ permalink: "/pricing/"
     <link rel="stylesheet" href="/assets/css/local.css">
     <style>
         #pricing-page {
-            /* Pushes content down to clear the fixed header */
-            padding-top: clamp(8rem, 15vw, 12rem); 
-            padding-bottom: var(--sectionPadding);
-            background-color: var(--bodyTextColorWhite); 
+            padding: var(--sectionPadding);
+            background-color: var(--bodyTextColorWhite); /* Off-white in light mode */
             transition: background-color 0.3s;
         }
-
-        /* Dark Mode Adjustment */
+        /* Dark Mode Adjustment for Section Background */
         body.dark-mode #pricing-page {
             background-color: var(--dark);
-        }
-
-        /* Styling the Title as the new "Topper" anchor */
-        #pricing-page .cs-title {
-            color: var(--primary); /* Electric Blue */
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 4rem;
-            text-align: center;
-        }
-
-        body.dark-mode #pricing-page .cs-title {
-            color: #007bff; /* Keeps it that specific Electric Blue in dark mode */
         }
 
         .pricing-grid {
@@ -42,6 +24,7 @@ permalink: "/pricing/"
             flex-wrap: wrap;
             justify-content: center;
             gap: 2rem;
+            margin-top: 3rem;
         }
 
         .price-card {
@@ -58,6 +41,7 @@ permalink: "/pricing/"
             transition: background 0.3s, transform 0.3s;
         }
 
+        /* Dark Mode Adjustment for Cards */
         body.dark-mode .price-card {
             background: var(--medium);
             border-color: var(--accent);
@@ -96,6 +80,7 @@ permalink: "/pricing/"
         body.dark-mode .price-list li { color: var(--bodyTextColorWhite); }
         .price-list li::before { content: '✓'; color: var(--primary); font-weight: 900; }
 
+        /* Add-on Styling */
         .add-on-card {
             background: #fff;
             padding: 2rem;
@@ -116,7 +101,8 @@ permalink: "/pricing/"
 
 {% block body %}
 <section id="pricing-page">
-    <div class="cs-container" style="max-width: 1280px; margin: auto;">
+    <div class="cs-container" style="max-width: 1280px; margin: auto; text-align: center;">
+        <span class="cs-topper" style="color: var(--primary); display: block; font-weight: 700; margin-bottom: 1rem;">Pricing Plans</span>
         <h1 class="cs-title">Choose Your Depth</h1>
         
         <div class="pricing-grid">
@@ -158,7 +144,7 @@ permalink: "/pricing/"
             </div>
         </div>
 
-        <div class="add-ons" style="margin-top: 5rem; text-align: center;">
+        <div class="add-ons" style="margin-top: 5rem;">
             <h2 class="cs-title" style="font-size: 2rem; margin-bottom: 2rem;">Agency Add-Ons</h2>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
                 <div class="add-on-card">

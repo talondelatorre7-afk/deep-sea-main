@@ -24,6 +24,22 @@
                     <li class="cs-li">
                         <a href="/about/" class="cs-li-link {% if page.url == '/about/' %} cs-active {% endif %}">About</a>
                     </li>
+                    
+                    <li class="cs-li cs-dropdown">
+                        <button class="cs-li-link cs-dropdown-toggle {% if page.url == '/web-design/' or page.url == '/video-production/' %} cs-active {% endif %}" aria-haspopup="menu" aria-expanded="false" id="Services-dropdown-toggle">
+                            Services
+                            <img class="cs-drop-icon" src="/assets/svgs/dropdown.svg" alt="" width="15" height="15" decoding="async" aria-hidden="true">
+                        </button>
+                        <ul class="cs-drop-ul" aria-labelledby="Services-dropdown-toggle">
+                            <li class="cs-drop-li">
+                                <a href="/web-design/" class="cs-li-link cs-drop-link {% if page.url == '/web-design/' %} cs-active {% endif %}">Web Design</a>
+                            </li>
+                            <li class="cs-drop-li">
+                                <a href="/video-production/" class="cs-li-link cs-drop-link {% if page.url == '/video-production/' %} cs-active {% endif %}">Video Production</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="cs-li">
                         <a href="/pricing/" class="cs-li-link {% if page.url == '/pricing/' %} cs-active {% endif %}">Pricing</a>
                     </li>

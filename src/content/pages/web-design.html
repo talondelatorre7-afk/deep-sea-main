@@ -1,0 +1,66 @@
+---
+title: "Managed Web Design | Deep Sea Digital"
+description: "Custom hand-coded, ultra-fast websites for $175/mo with $0 down. Fully managed web solutions based in Chino, CA."
+permalink: "/web-design/"
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/assets/css/local.css">
+{% endblock %}
+
+{% block body %}
+<!-- ============================================ -->
+<!--              UNIVERSAL SPACER                -->
+<!-- ============================================ -->
+<div style="margin-top: 5rem; margin-bottom: 0rem; position: relative; z-index: 10;">
+    <!-- 
+        HOW TO ADJUST THE SPACING:
+        Since most sections have built-in padding, use this block to pull them closer or push them apart.
+        
+        - To bring sections CLOSER together: Make the margin-top a larger negative number (e.g., -4rem, -6rem).
+        - To push sections FURTHER apart: Change margin-top to a positive number (e.g., 2rem, 4rem).
+        
+        margin-top: Pulls the bottom section UP (if negative) or pushes it DOWN (if positive).
+        margin-bottom: You can add a positive value here if you want to push the bottom section down even more.
+    -->
+</div>
+    <section id="RPsbs-313">
+        <div class="cs-container">
+            <div class="cs-image-group">
+                <picture class="cs-standalone-picture">
+    <source srcset="{% getUrl '/assets/images/122123.png' | resize({ width: auto, height: auto }) | webp %}" type="image/webp">
+    <img src="{% getUrl '/assets/images/122123.png' | resize({ width: 1044, height: 1162 }) | jpeg %}" alt="Custom coded frameworks alignment" width="522" height="581" loading="lazy" decoding="async">
+</picture>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">The Subscription Model</span>
+                <h2 class="cs-title">Hand Coded Frameworks with Zero Upfront Cost</h2>
+                <p class="cs-text">
+                    We don't use rigid drag-and-drop page builders that bloat your site and destroy your performance metrics. Every digital storefront we build is hand-coded from scratch using optimized frameworks designed to load in under a second.
+                </p>
+                <p class="cs-text">
+                    For $175 a month, you receive a premium web deployment with $0 down. This full management plan covers high speed hosting solutions, ongoing search optimization tracking, and direct text-based technical modifications with a 24-hour turnaround window.
+                </p>
+                <span class="cs-topper">What Is Included:</span>
+                <p class="cs-text">
+                    Custom Development: Optimized 90+ Google PageSpeed scores.
+                </p>
+                <p class="cs-text">
+                    Managed Hosting: Secure, reliable server networks.
+                </p>
+                <p class="cs-text">
+                    Direct Assistance: Text updates processed within a single day.
+                </p>
+                <p class="cs-text" style="font-style: italic; color: var(--primary); margin-top: 1.5rem;">
+                    Please Note: To keep this monthly model accessible, premium video production features are handled via separate project agreements.
+                </p>
+                <a href="/contact/" class="cs-button-solid">Build Your Site</a>
+            </div>
+        </div>
+    </section>
+
+    {% include 'sections/cta.html' %}
+
+{% endblock %}

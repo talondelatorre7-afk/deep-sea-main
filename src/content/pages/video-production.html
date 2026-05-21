@@ -1,0 +1,68 @@
+---
+title: "Premium Video Production | Deep Sea Digital"
+description: "Cinema-grade 4K brand storytelling, commercial video assets, and professional photography packages based in Chino, CA."
+permalink: "/video-production/"
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/assets/css/local.css">
+{% endblock %}
+
+{% block body %}
+<!-- ============================================ -->
+<!--              UNIVERSAL SPACER                -->
+<!-- ============================================ -->
+<div style="margin-top: 5rem; margin-bottom: 0rem; position: relative; z-index: 10;">
+    <!-- 
+        HOW TO ADJUST THE SPACING:
+        Since most sections have built-in padding, use this block to pull them closer or push them apart.
+        
+        - To bring sections CLOSER together: Make the margin-top a larger negative number (e.g., -4rem, -6rem).
+        - To push sections FURTHER apart: Change margin-top to a positive number (e.g., 2rem, 4rem).
+        
+        margin-top: Pulls the bottom section UP (if negative) or pushes it DOWN (if positive).
+        margin-bottom: You can add a positive value here if you want to push the bottom section down even more.
+    -->
+</div>
+    <section id="RPsbs-313">
+        <div class="cs-container">
+            <div class="cs-image-group">
+                <picture class="cs-picture cs-picture1">
+                    <img src="/assets/images/023.jpg" alt="Professional Cinematography" width="522" height="581" decoding="async">
+                </picture>
+                <picture class="cs-picture cs-picture2">
+                    <img src="/assets/images/goofysmoke.webp" alt="Talon De La Torre - Founder" width="390" height="376" loading="lazy" decoding="async">
+                </picture>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">Visual Storytelling</span>
+                <h2 class="cs-title">4K Cinema Assets for Local Leaders</h2>
+                <p class="cs-text">
+                    In a digital space flooded with low effort mobile clips and generic stock designs, true production quality stands out immediately. We utilize high end cinema equipment to document your business operation, capture your brand's unique culture, and create polished assets that build trust with your customers.
+                </p>
+                <p class="cs-text">
+                    Whether you need a core commercial campaign, high end media, or clear brand asset repositories, our productions separate you from local competitors. These packages operate as completely custom, project based commercial contracts.
+                </p>
+                <span class="cs-topper">Production Capabilities:</span>
+                <p class="cs-text">
+                    Commercial Films: Narrative marketing focused on conversions.
+                </p>
+                <p class="cs-text">
+                    Company Culture: High end coverage for high end businesses.
+                </p>
+                <p class="cs-text">
+                    Brand Libraries: High resolution corporate photography groups.
+                </p>
+                <p class="cs-text" style="font-style: italic; color: var(--primary); margin-top: 1.5rem;">
+                    Integration Option: All original media structures can run standalone or deploy straight into our managed web framework.
+                </p>
+                <a href="/contact/" class="cs-button-solid">Book a Production</a>
+            </div>
+        </div>
+    </section>
+
+    {% include 'sections/cta.html' %}
+
+{% endblock %}

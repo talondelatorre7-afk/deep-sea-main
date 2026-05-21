@@ -92,7 +92,33 @@
                 object-fit: cover;
             }
         }
+// NEW STANDALONE VIDEO (add right below cs-standalone-picture)
+.cs-standalone-video {
+    position: relative; 
+    display: block;
+    width: 100%;
+    max-width: calc(522 / 16 * 1em); // Binds the max-width on desktop
+    height: auto;
+    aspect-ratio: 522 / 581; // Matches the standard container layout for consistency
+    margin: 0 auto; 
+    border-radius: calc(24 / 16 * 1em);
+    overflow: hidden;
+    /* A deep dark background that suggests technical depth and high-end performance */
+    background-color: #030a13; // Dark sea/brutalist tone
 
+    .cs-video-element {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        /* Change this from 'cover' to 'contain' to ensure the entire video frames are visible without cropping */
+        object-fit: cover; 
+        object-position: center; // Centers the video content vertically and horizontally
+        /* High-performance styling: ensuring no border or artifacts */
+        border: none;
+    }
+}
         .cs-container {
             width: 100%;
             max-width: calc(1280 / 16 * 1rem);

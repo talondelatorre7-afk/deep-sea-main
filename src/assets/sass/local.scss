@@ -662,7 +662,7 @@ body.dark-mode {
         .cs-container {
             width: 100%;
             /* chnages to 1280px at desktop */
-            max-width: (584/16rem);
+            max-width: (36.5rem);
             margin: auto;
             display: flex;
             flex-direction: column;
@@ -759,7 +759,7 @@ body.dark-mode {
             text-align: left;
             font-weight: bold;
             width: 100%;
-            padding: 0 (40/16rem) 0 0;
+            padding: 0 (2.5rem) 0 0;
             border: none;
             background: transparent;
             color: var(--headerColor);
@@ -781,15 +781,15 @@ body.dark-mode {
             &:before {
                 /* left line */
                 content: "";
-                width: (8/16rem);
-                height: (2/16rem);
+                width: (0.5rem);
+                height: (0.125rem);
                 background-color: var(--headerColor);
                 opacity: 1;
                 border-radius: 50%;
                 position: absolute;
                 display: block;
                 top: 45%;
-                right: (19/16rem);
+                right: (1.1875rem);
                 transform: rotate(45deg);
                 /* animate the transform from the left side of the x axis, and the center of the y */
                 transform-origin: left center;
@@ -799,15 +799,15 @@ body.dark-mode {
             &:after {
                 /* right line */
                 content: "";
-                width: (8/16rem);
-                height: (2/16rem);
+                width: (0.5rem);
+                height: (0.125rem);
                 background-color: var(--headerColor);
                 opacity: 1;
                 border-radius: 50%;
                 position: absolute;
                 display: block;
                 top: 45%;
-                right: (16/16rem);
+                right: (1rem);
                 transform: rotate(-45deg);
                 /* animate the transform from the right side of the x axis, and the center of the y */
                 transform-origin: right center;
@@ -816,7 +816,7 @@ body.dark-mode {
         }
 
         .cs-number {
-            font-size: (20/16rem);
+            font-size: (1.25rem);
             line-height: 1.5em;
             /* 52px - 72px */
             width: clamp(3.25rem, 6vw, 4.5rem);
@@ -876,7 +876,7 @@ body.dark-mode {
             font-size: clamp(0.875rem, 1.5vw, 1rem);
             line-height: 1.5em;
             width: 90%;
-            max-width: (541/16rem);
+            max-width: (33.8125rem);
             height: 0;
             margin: 0;
             /* 16px - 24px */
@@ -901,7 +901,7 @@ body.dark-mode {
 @media only screen and (min-width: 48rem) {
     #faq-1237 {
         .cs-container {
-            max-width: (1280/16rem);
+            max-width: (80rem);
         }
 
         .cs-wrapper {
@@ -972,7 +972,7 @@ body.dark-mode {
         .cs-container {
             width: 100%;
             /* changes to 1440px at tablet */
-            max-width: (550/16em);
+            max-width: (33.375em);
             margin: auto;
             display: flex;
             flex-direction: column;
@@ -997,7 +997,7 @@ body.dark-mode {
         }
 
         .cs-text {
-            max-width: (522/16rem);
+            max-width: (32.625rem);
             color: var(--bodyTextColorWhite);
             opacity: 0.8;
         }
@@ -1023,25 +1023,25 @@ body.dark-mode {
                 display: block;
                 top: 0;
                 /* send it way down to reach the bottom of the section, and have some overlap so if you add content and the ul gets longer, it will still be at the bottom */
-                bottom: (-300/16rem);
+                bottom: calc(-300/16rem);
                 /* half the width of the bullet */
-                left: (6/16rem);
+                left: calc(6/16rem);
             }
         }
 
         .cs-item {
             width: 100%;
-            max-width: (400/16rem);
+            max-width: calc(400/16rem);
             list-style: none;
-            padding: 0 0 0 (52/16rem);
+            padding: 0 0 0 calc(52/16rem);
             /* prevents padding and border from affecting height and width */
             box-sizing: border-box;
             position: relative;
             &:before {
                 /* bullet circle */
                 content: "";
-                width: (12/16rem);
-                height: (12/16rem);
+                width: calc(12/16rem);
+                height: calc(12/16rem);
                 background: var(--primary);
                 border-radius: 50%;
                 opacity: 1;
@@ -1053,7 +1053,7 @@ body.dark-mode {
         }
 
         .cs-icon {
-            width: (60/16rem);
+            width: calc(60/16rem);
             height: auto;
             /* 32px - 40px */
             margin: 0 0 clamp(2rem, 3vw, 2.5rem);
@@ -1066,7 +1066,7 @@ body.dark-mode {
             font-weight: 700;
             /* changes to 100% at tablet */
             width: 80%;
-            margin: 0 0 (16/16rem) 0;
+            margin: 0 0 calc(16/16rem) 0;
             color: var(--bodyTextColorWhite);
             position: relative;
         }
@@ -1085,7 +1085,7 @@ body.dark-mode {
 @media only screen and (min-width: 48rem) {
     #timeline-970 {
         .cs-container {
-            max-width: (1440/16rem);
+            max-width: calc(1440/16rem);
         }
 
         .cs-card-group {
@@ -1095,7 +1095,7 @@ body.dark-mode {
                 width: 100%;
                 height: 1px;
                 top: auto;
-                bottom: (6/16rem);
+                bottom: calc(6/16rem);
                 /* these next two properties center the line in the UL */
                 left: 50%;
                 transform: translateX(-50%);
@@ -1103,12 +1103,12 @@ body.dark-mode {
         }
 
         .cs-item {
-            padding: 0 0 (66/16rem) 0;
+            padding: 0 0 calc(66/16rem) 0;
             z-index: 1;
 
             &::before {
                 top: auto;
-                bottom: (0/16rem);
+                bottom: calc(0/16rem);
             }
         }
 

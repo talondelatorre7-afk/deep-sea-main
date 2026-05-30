@@ -28,7 +28,7 @@ function disableDarkMode() {
 
 // Determines a user's dark mode preferences and applies theme
 function detectColorScheme() {
-	let theme = "light"; // Default to light theme
+	let theme = "dark"; // Default to dark theme
 
 	// 1. Check localStorage for a saved 'theme' preference
 	if (localStorage.getItem("theme")) {

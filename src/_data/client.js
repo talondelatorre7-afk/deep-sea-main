@@ -8,7 +8,7 @@ module.exports = {
         instagram: "https://www.instagram.com/deepseawebdesign",
     },
     //! Make sure you include the file protocol (e.g. https://) and that NO TRAILING SLASH is included
-    domain: "https://www.example.com",
+    domain: "https://deepseadigital.online",
     // Passing the isProduction variable for use in HTML templates
     isProduction: process.env.ELEVENTY_ENV === "PROD",
 };

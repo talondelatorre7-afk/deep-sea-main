@@ -12,9 +12,9 @@ permalink: "/video-production/"
 
 {% block body %}
 <!-- ============================================ -->
-<!--              UNIVERSAL SPACER                -->
+<!--                UNIVERSAL SPACER                -->
 <!-- ============================================ -->
-<div style="margin-top: 5rem; margin-bottom: 0rem; position: relative; z-index: 10;">
+<div style="margin-top: 3.75rem; margin-bottom: 0rem; position: relative; z-index: 10;">
     <!-- 
         HOW TO ADJUST THE SPACING:
         Since most sections have built-in padding, use this block to pull them closer or push them apart.
@@ -28,16 +28,14 @@ permalink: "/video-production/"
 </div>
     <section id="RPsbs-313">
         <div class="cs-container">
-            <div class="cs-image-group">
-                <picture class="cs-picture cs-picture1">
-                    <img src="/assets/images/023.jpg" alt="Professional Cinematography" width="522" height="581" decoding="async">
-                </picture>
-                <picture class="cs-picture cs-picture2">
-                    <img src="/assets/images/goofysmoke.webp" alt="Talon De La Torre - Founder" width="390" height="376" loading="lazy" decoding="async">
-                </picture>
+            <!-- Custom Video Wrapper: Keeps it 100% on phone, but strictly limits width on PC to prevent squishing text -->
+            <div style="width: 100%; max-width: 600px;">
+                <video autoplay muted loop playsinline id="hero-video" style="width: 100%; height: auto; border-radius: 1rem; display: block;">
+                    <source src="/assets/images/hero-main.mp4" type="video/mp4">
+                </video>
             </div>
             <div class="cs-content">
-                <span class="cs-topper">Visual Storytelling</span>
+                <span class="cs-topper">Video Production</span>
                 <h2 class="cs-title">4K Cinema Assets for Local Leaders</h2>
                 <p class="cs-text">
                     In a digital space flooded with low effort mobile clips and generic stock designs, true production quality stands out immediately. We utilize high end cinema equipment to document your business operation, capture your brand's unique culture, and create polished assets that build trust with your customers.

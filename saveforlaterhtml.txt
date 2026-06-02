@@ -103,3 +103,45 @@ SERVICES ^^^^^^^^^^ local.scss already has the code for this to work anywhere
 
 next
 
+SINGLE IMAGE PAGE:
+
+---
+title: "High-End Paint Correction & Detailing | Moreno's Riverside"
+description: "Restore your vehicle's clarity with expert paint correction and premium detailing at Moreno's High End Detailing in Riverside, CA."
+permalink: "/paint-correction/"
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/assets/css/local.css">
+{% endblock %}
+
+{% block body %}
+
+    <section id="RPsbs-313" style="padding-top: clamp(8rem, 15vw, 10rem);">
+        <div class="cs-container">
+            <div class="cs-image-group">
+                <picture class="cs-picture" style="width: 100%; height: 100%; left: 0; top: 0;">
+                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/portfolio/port13.jpg' | resize({ width: 640, height: 600 }) | webp %}" type="image/webp">
+                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/portfolio/port13.jpg' | resize({ width: 1044, height: 1162 }) | webp %}" type="image/webp">
+                    <img src="{% getUrl '/assets/images/portfolio/port13.jpg' | resize({ width: 1044, height: 1162 }) | jpeg %}" alt="technician performing paint correction" width="522" height="581" loading="eager" decoding="async">
+                </picture>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">Showroom Quality Finish</span>
+                <h2 class="cs-title">Flawless Paint Correction & Detailing</h2>
+                <p class="cs-text">
+                    Daily driving takes a toll on your vehicle's clear coat. Swirl marks, minor scratches, and oxidation can dull the look of even the highest end exotics. Our precision paint correction process safely levels the clear coat, permanently removing imperfections rather than just hiding them with heavy glazes.
+                </p>
+                <p class="cs-text">
+                    Paired with our uncompromising interior and exterior detailing, we bring your vehicle back to absolute factory fresh clarity. Whether you are bringing us a vintage build, your daily driver, or a track ready car, we deliver a flawless, mirror smooth finish every single time.
+                </p>
+                <a href="/contact/" class="cs-button-solid">Book Your Detail</a>
+            </div>
+        </div>
+    </section>
+
+    {% include 'sections/cta.html' %}
+
+{% endblock %}

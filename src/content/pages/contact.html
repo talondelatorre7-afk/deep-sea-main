@@ -13,6 +13,46 @@ permalink: "/contact/"
         .hidden {
             display: none !important;
         }
+        
+        /* Forces the SMS opt-in to span the full width of the form grid */
+        .opt-in-wrapper {
+            grid-column: 1 / -1 !important;
+            width: 100% !important;
+            max-width: none !important;
+            margin-top: -0.75rem !important; /* Pulls the checkbox closer to the text area */
+            margin-bottom: 1.5rem !important;
+        }
+
+        /* Overrides the default vertical stacking of CodeStitch form labels */
+        .opt-in-label {
+            display: flex !important;
+            flex-direction: row !important; 
+            align-items: flex-start !important;
+            gap: 0.75rem !important;
+            font-size: 0.85rem !important;
+            color: #b4b4b4 !important;
+            line-height: 1.5 !important;
+            cursor: pointer !important;
+            width: 100% !important;
+            max-width: none !important;
+            text-align: left !important;
+        }
+
+        /* Forces the text itself to stretch out and fill the container on desktop */
+        .opt-in-label span {
+            flex: 1 !important;
+            width: 100% !important;
+            max-width: none !important;
+        }
+
+        /* Prevents the checkbox from resizing or misaligning */
+        .opt-in-label input[type="checkbox"] {
+            width: 18px !important;
+            height: 18px !important;
+            margin: 2px 0 0 0 !important;
+            flex-shrink: 0 !important;
+            accent-color: var(--primary) !important;
+        }
     </style>
 {% endblock %}
 
@@ -38,7 +78,7 @@ permalink: "/contact/"
                     <span class="cs-topper">Contact Us</span>
                     <h2 class="cs-title">Secure Your Spot</h2>
                     <p class="cs-text">
-                        We only take on a limited number of clients per month to ensure every site gets the cinema-grade attention it deserves. Tell us about your business, and we'll reach out to schedule your free 4K media audit.
+                        We only take on a limited number of clients per month to ensure every site gets the premium video production attention it deserves. Tell us about your business, and we'll reach out to schedule your free 4K media audit.
                     </p>
                 </div>
 
@@ -70,6 +110,15 @@ permalink: "/contact/"
                         What is your main goal? (More leads, better branding, etc.)
                         <textarea required name="Message" id="message-265" placeholder="Tell us about your project..."></textarea>
                     </label>
+                    
+                    <!-- SMS Opt-In Checkbox -->
+                    <div class="opt-in-wrapper">
+                        <label class="opt-in-label">
+                            <input type="checkbox" name="SMS_Opt_In" required>
+                            <span>I agree to receive SMS communications from Deep Sea Digital regarding my inquiry. I understand I can reply STOP to opt out at any time. Message and data rates may apply.</span>
+                        </label>
+                    </div>
+
                     <button class="cs-button-solid cs-submit" type="submit">Submit My Request</button>
                 </form>
             </div>

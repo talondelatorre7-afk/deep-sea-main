@@ -1,0 +1,228 @@
+---
+title: "Leave a Review | Deep Sea Digital"
+description: "We value your feedback. Let us know how your experience working with Deep Sea Digital was."
+permalink: "/rate/"
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/assets/css/contact.css">
+    <style>
+        #review-filter {
+            /* Centers the card on the page */
+            padding: 10rem 1rem 8rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        /* The Hovering Card Container */
+        .review-card {
+            background-color: #11111e; /* Matches the deep card background of the pricing tables */
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle edge highlight */
+            border-radius: 1rem;
+            padding: 3rem 2rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover effect to make it 'float' */
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .review-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-text {
+            color: #b4b4b4;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+        
+        /* The Star Rating Container */
+        .stars-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .star {
+            font-size: 3.5rem;
+            color: rgba(255, 255, 255, 0.1); /* Dim color for unselected */
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+            user-select: none;
+        }
+        
+        .star.active {
+            color: #FFD700; /* Classic Gold */
+        }
+        
+        .star:hover {
+            transform: scale(1.15);
+        }
+
+        /* Hidden state for the negative feedback form */
+        #negative-form-wrap {
+            display: none;
+            text-align: left;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Form overrides for the dark card */
+        #negative-form-wrap label {
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        #negative-form-wrap input, 
+        #negative-form-wrap textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 0.8rem 1rem;
+            color: #fff;
+            margin-bottom: 1.25rem;
+            font-family: inherit;
+        }
+        #negative-form-wrap input:focus, 
+        #negative-form-wrap textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <section id="review-filter">
+        <!-- The Hovering Card -->
+        <div class="review-card">
+            
+            <div id="initial-rating-view">
+                <h1 class="review-title">Rate Your Experience</h1>
+                <p class="review-text">
+                    How many stars would you give your experience working with Deep Sea Digital?
+                </p>
+
+                <div class="stars-container" id="stars-row">
+                    <!-- Data-value is what the JS reads when clicked -->
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+            </div>
+
+            <!-- PRIVATE FEEDBACK FORM (Web3Forms Backend) -->
+            <div id="negative-form-wrap">
+                <h2 style="color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; text-align: center;">We want to make this right.</h2>
+                <p style="color: #b4b4b4; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.4; text-align: center;">
+                    We take our quality incredibly seriously. Please let our founder know exactly what went wrong so we can immediately rectify the situation for you.
+                </p>
+
+                <form action="https://api.web3forms.com/submit" method="POST" id="cs-form-265" style="padding: 0; background: transparent;">
+                    <input type="hidden" name="access_key" value="a6d2c7aa-57a7-4ab9-b854-53a39936f865">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    
+                    <input type="hidden" name="subject" value="URGENT: Low Rating Intercepted on Review Page">
+                    <!-- This hidden input captures the exact star number they clicked -->
+                    <input type="hidden" name="Star-Rating-Given" id="star-rating-input" value="">
+
+                    <label>
+                        Your Name
+                        <input required type="text" id="name-265" name="name" placeholder="Full Name">
+                    </label>
+                    <label>
+                        Your Email
+                        <input required type="email" id="email-265" name="email" placeholder="Email Address">
+                    </label>
+                    <label>
+                        What went wrong?
+                        <textarea required name="Constructive-Feedback" id="message-265" placeholder="Please detail your experience here..." rows="4"></textarea>
+                    </label>
+                    <button class="cs-button-solid cs-submit" type="submit" style="width: 100%;">Send Message to Management</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Star Logic and Routing Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star');
+            const initialView = document.getElementById('initial-rating-view');
+            const formWrap = document.getElementById('negative-form-wrap');
+            const starInput = document.getElementById('star-rating-input');
+
+            // Google Maps Review Link (Replace this URL!)
+            const googleReviewLink = "https://g.page/r/CUOO5AsdjSjlEBM/review";
+
+            // Add hover effects so the stars light up left-to-right
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function() {
+                    const rating = this.getAttribute('data-value');
+                    highlightStars(rating);
+                });
+
+                star.addEventListener('mouseout', function() {
+                    highlightStars(0); // Clear highlight when mouse leaves
+                });
+
+                // The Magic Click Logic
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-value'));
+                    
+                    if (rating >= 4) {
+                        // 4 or 5 Stars -> Redirect to Google
+                        window.location.href = googleReviewLink;
+                    } else {
+                        // 1, 2, or 3 Stars -> Hide stars, show form, capture the rating
+                        starInput.value = rating + " Stars";
+                        initialView.style.display = 'none';
+                        formWrap.style.display = 'block';
+                    }
+                });
+            });
+
+            // Function to light up stars based on index
+            function highlightStars(rating) {
+                stars.forEach(star => {
+                    if (star.getAttribute('data-value') <= rating) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+{% endblock %}

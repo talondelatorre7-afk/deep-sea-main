@@ -1721,3 +1721,42 @@
         filter: grayscale(1) brightness(1000%);
     }
 }
+/* ============================================ */
+/* Animated Logo Switching                      */
+/* ============================================ */
+
+/* 1. Turn the logo link into a grid to stack the images perfectly */
+.cs-logo {
+    display: grid !important;
+    align-items: center;
+}
+
+/* 2. Place both images in the exact same grid spot and set the animation speed */
+.cs-logo img {
+    grid-column: 1;
+    grid-row: 1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* 3. Default State (Light Mode) */
+.cs-logo-dark {
+    opacity: 0;
+    transform: scale(0.8); /* Shrinks it slightly while hidden */
+    pointer-events: none; /* Prevents invisible logo from blocking clicks */
+}
+.cs-logo-light {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 4. Active State (Dark Mode) */
+body.dark-mode .cs-logo-dark {
+    opacity: 1;
+    transform: scale(1); /* Pops back to full size */
+    pointer-events: auto;
+}
+body.dark-mode .cs-logo-light {
+    opacity: 0;
+    transform: scale(0.8); /* Shrinks away */
+    pointer-events: none;
+}

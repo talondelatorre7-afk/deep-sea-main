@@ -8,61 +8,105 @@ permalink: "/web-design/"
 
 {% block head %}
     <link rel="stylesheet" href="/assets/css/local.css">
+    
+    <style>
+        /* Restores clearance for the fixed navigation header */
+        #RPsbs-313 {
+            margin-top: 5rem; 
+        }
+
+        #RPsbs-313 .cs-container {
+            align-items: flex-start;
+        }
+        
+        /* Forces the image container to wrap tightly to the image */
+        #RPsbs-313 .cs-image-group {
+            min-height: 0 !important;
+            height: auto !important;
+            margin-bottom: 0 !important; 
+        }
+        
+        /* Kills absolute positioning that causes floating/negative space */
+        #RPsbs-313 .cs-image-group picture {
+            position: relative !important;
+            display: block;
+            height: auto !important;
+            padding: 0 !important;
+        }
+        
+        #RPsbs-313 .cs-image-group img {
+            position: relative !important;
+            width: 100%;
+            height: auto !important;
+            border-radius: 8px;
+            object-fit: contain !important; 
+        }
+
+        /* Cleans up the stacked paragraph margins */
+        .custom-list {
+            margin-bottom: 1.5rem;
+            padding-left: 0;
+            list-style: none;
+        }
+        .custom-list li {
+            color: var(--bodyTextColor);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mobile-Specific Overrides: 
+           Strips out any leftover CodeStitch padding/heights/gaps on small screens 
+        */
+        @media only screen and (max-width: 48rem) {
+            #RPsbs-313 .cs-container {
+                gap: 0 !important; /* Kills the hidden flex/grid gap CodeStitch uses */
+            }
+            #RPsbs-313 .cs-image-group {
+                padding: 0 !important;
+                margin-bottom: 0 !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #RPsbs-313 .cs-content {
+                /* Aggressively pulls the text up. Increase to -3rem or -4rem if your image file has white space baked into it */
+                margin-top: -11rem !important; 
+            }
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-<!-- ============================================ -->
-<!--              UNIVERSAL SPACER                -->
-<!-- ============================================ -->
-<div style="margin-top: 5rem; margin-bottom: 0rem; position: relative; z-index: 10;">
-    <!-- 
-        HOW TO ADJUST THE SPACING:
-        Since most sections have built-in padding, use this block to pull them closer or push them apart.
-        
-        - To bring sections CLOSER together: Make the margin-top a larger negative number (e.g., -4rem, -6rem).
-        - To push sections FURTHER apart: Change margin-top to a positive number (e.g., 2rem, 4rem).
-        
-        margin-top: Pulls the bottom section UP (if negative) or pushes it DOWN (if positive).
-        margin-bottom: You can add a positive value here if you want to push the bottom section down even more.
-    -->
-</div>
     <section id="RPsbs-313">
         <div class="cs-container">
             <div class="cs-image-group">
                 <picture class="cs-standalone-picture">
-    <source srcset="{% getUrl '/assets/images/deep1.png' | resize({ width: auto, height: auto }) | webp %}" type="image/webp">
-    <img src="{% getUrl '/assets/images/deep1.png' | resize({ width: 1044, height: 1162 }) | jpeg %}" alt="Custom coded frameworks alignment" width="522" height="581" loading="lazy" decoding="async">
-</picture>
+                    <source srcset="{% getUrl '/assets/images/mock2.webp' | resize({ width: auto, height: auto }) | webp %}" type="image/webp">
+                    <img src="{% getUrl '/assets/images/mock2.webp' | resize({ width: 1044, height: 1162 }) | webp %}" alt="Moreno's Detailing website mockup on laptop and mobile" width="522" height="581" loading="lazy" decoding="async">
+                </picture>
             </div>
+            
             <div class="cs-content">
                 <h2 class="cs-title">PROFESSIONAL WEB DESIGN</h2>
                 <span class="cs-topper">CUSTOM CODE - NO PAGE BUILDERS OR WORDPRESS</span>
                 <p class="cs-text">
                     We don't use rigid drag-and-drop page builders that bloat your site and destroy your performance metrics. Every digital storefront we build is hand-coded from scratch using optimized frameworks designed to load in under a second.
                 </p>
+                
                 <span class="cs-topper">WHY IT MATTERS</span>
-                <p class="cs-text">
-                    - Faster load times
-                </p>
-                <p class="cs-text">
-                    - Better conversions
-                </p>
-                <p class="cs-text">
-                    - Better performing ads
-                </p>
-                <p class="cs-text">
-                    - 100% secure
-                </p>
-                <p class="cs-text">
-                    - Better Ranking on google
-                </p>
-                <p class="cs-text">
-                    - Boosts your google business profile in search results
-                </p>
-                <span class="cs-topper">Better Load times leads to higher conversions</span>
+                <ul class="custom-list">
+                    <li>- Faster load times</li>
+                    <li>- Better conversions</li>
+                    <li>- Better performing ads</li>
+                    <li>- 100% secure</li>
+                    <li>- Better Ranking on Google</li>
+                    <li>- Boosts your Google Business Profile in search results</li>
+                </ul>
+
+                <span class="cs-topper">Better Load Times Leads to Higher Conversions</span>
                 <p class="cs-text">
                     In a crowded digital market, performance is your greatest competitive advantage. While most businesses rely on slow, bloated page builders, we engineer custom coded websites built for pure speed. Data shows that if a site takes longer than three seconds to load, you lose up to 50% of your potential customers. Our architecture loads instantly, eliminating wait times and ensuring every click has the highest possible chance of converting into a lead.
                 </p>
+
                 <span class="cs-topper">Custom Coded Websites Are More Secure</span>
                 <p class="cs-text">
                     Traditional platforms like WordPress rely on complex databases and constant plugin updates, creating endless vulnerabilities for hackers to exploit. If a single third party plugin falls out of date, your entire business is at risk.
@@ -70,27 +114,28 @@ permalink: "/web-design/"
                 <p class="cs-text">
                     We build differently. By engineering your site with hand-coded, static architecture, we eliminate databases and server side vulnerabilities entirely. There is simply nothing for a hacker to breach. The result is a bulletproof digital asset that remains perfectly secure and fully operational without the need for constant security patches.
                 </p>
-                <span class="cs-topper">Improve your search engine rankings</span>
+
+                <span class="cs-topper">Improve Your Search Engine Rankings</span>
                 <p class="cs-text">
                     A fast website does more than just impress visitors. It actively climbs search rankings. Google rewards sites that pass its Core Web Vitals tests, meaning when two competitors offer similar value, the faster site wins. Furthermore, our zero latency load times prevent immediate bounce rates, keeping users on your page longer. These high engagement metrics signal to search engines that your website provides an elite user experience, creating a compounding effect that continually drives your rank upward.
                 </p>
+
                 <span class="cs-topper">Boost Your Google Business Profile</span>
                 <p class="cs-text">
                     A high-performance website directly amplifies your Google Business Profile, significantly increasing your visibility in local Map searches. When paired with a fully optimized profile, complete with high-quality media and five-star reviews, this creates a powerful lead generation engine. By dominating local search visibility, we drive high-intent traffic directly to a site engineered to convert those visitors into paying clients.
                 </p>
+
                 <span class="cs-topper">What Is Included:</span>
-                <p class="cs-text">
-                    Custom Development: Optimized 90+ Google PageSpeed scores.
-                </p>
-                <p class="cs-text">
-                    Managed Hosting: Secure, reliable server networks.
-                </p>
-                <p class="cs-text">
-                    Direct Assistance: Text updates processed usually within a single day.
-                </p>
+                <ul class="custom-list">
+                    <li><strong>Custom Development:</strong> Optimized 90+ Google PageSpeed scores.</li>
+                    <li><strong>Managed Hosting:</strong> Secure, reliable server networks.</li>
+                    <li><strong>Direct Assistance:</strong> Text updates processed usually within a single day.</li>
+                </ul>
+
                 <p class="cs-text" style="font-style: italic; color: var(--primary); margin-top: 1.5rem;">
                     Please Note: To keep this monthly model accessible, premium video production features are handled via separate project agreements.
                 </p>
+
                 <a href="/contact/" class="cs-button-solid">Build Your Site</a>
             </div>
         </div>

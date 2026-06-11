@@ -710,15 +710,15 @@
 		.cs-dropdown {
 			color: var(--bodyTextColorWhite);
 			position: relative;
+			/* Aligns the text to match your right-aligned mobile menu */
+			text-align: right; 
 
 			.cs-dropdown-toggle {
-				/* Reset default button styles */
 				background: none;
 				border: none;
 				font-family: inherit;
 				text-align: inherit;
 				cursor: pointer;
-				/* Remove any default focus styles */
 				-webkit-appearance: none;
 				-moz-appearance: none;
 				appearance: none;
@@ -727,11 +727,10 @@
 			&.cs-active {
 				.cs-drop-ul {
 					height: auto;
-					margin: calc(12 / 16 * 1rem) 0 0 0;
-					padding: calc(24 / 16 * 1rem);
+					margin: 0.75rem 0 0 0;
+					padding: 1rem; /* Gives the links breathing room inside the container */
 					opacity: 1;
 					visibility: visible;
-					transform: scale(1);
 				}
 
 				.cs-drop-link {
@@ -759,19 +758,20 @@
 			height: 0;
 			margin: 0;
 			box-sizing: border-box;
-			padding: 0 calc(24 / 16 * 1rem) 0 calc(24 / 16 * 1rem);
-			background-color: var(--primary);
+			padding: 0;
+			/* Creates a sleek, subtle inset background for the mobile dropdown */
+			background-color: rgba(0, 0, 0, 0.2); 
+			border-radius: 0.5rem; /* Soft rounded corners */
 			opacity: 0;
 			display: flex;
 			visibility: hidden;
 			flex-direction: column;
 			justify-content: flex-start;
-			align-items: flex-end;
-			gap: calc(12 / 16 * 1rem);
+			/* Aligns the links to the right to match the rest of the nav */
+			align-items: flex-end; 
+			gap: 0.75rem;
 			overflow: hidden;
-			transform: scale(0);
-			transition: padding 0.3s, margin 0.3s, height 0.3s, opacity 0.3s, transform 0.3s, visibility 0.3s;
-			transform-origin: top right;
+			transition: padding 0.3s, margin 0.3s, height 0.3s, opacity 0.3s, visibility 0.3s;
 		}
 
 		.cs-drop-li {
@@ -781,9 +781,10 @@
 
 		.cs-li-link {
 			&.cs-drop-link {
-				/* 14px - 16px */
 				font-size: clamp(0.875rem, 2vw, 1.25rem);
 				color: #fff;
+				/* Forces background to be transparent to kill the dark box bug */
+				background-color: transparent !important; 
 			}
 		}
 	}
@@ -796,13 +797,11 @@
 			position: relative;
 
 			.cs-dropdown-toggle {
-				/* Reset default button styles */
 				background: none;
 				border: none;
 				font-family: inherit;
 				text-align: inherit;
 				cursor: pointer;
-				/* Remove any default focus styles */
 				-webkit-appearance: none;
 				-moz-appearance: none;
 				appearance: none;
@@ -836,12 +835,11 @@
 			margin: 0;
 			padding: 0;
 			background-color: #fff;
-			box-shadow: rgba(149, 157, 165, 0.2) 0px 10px 16px;
+			box-shadow: inset rgba(149, 157, 165, 0.1) 0px 8px 10px;
 			opacity: 0;
 			border-bottom: 5px solid var(--primary);
+			border-radius: 0 0 1.5rem 1.5rem; /* Sleek rounded bottom */
 			visibility: hidden;
-			/* if you have 8 or more links in your dropdown nav, uncomment the columns property to make the list into 2 even columns. Change it to 3 or 4 if you need extra columns. Then remove the transition delays on the cs-drop-li so they don't have weird scattered animations */
-			// columns: 2;
 			position: absolute;
 			top: 100%;
 			z-index: -100;
@@ -863,45 +861,8 @@
 			transform: translateY(-0.625rem);
 			transition: opacity 0.6s, transform 0.6s;
 
-			&:nth-of-type(1) {
-				transition-delay: 0.05s;
-			}
-			&:nth-of-type(2) {
-				transition-delay: 0.1s;
-			}
-			&:nth-of-type(3) {
-				transition-delay: 0.15s;
-			}
-			&:nth-of-type(4) {
-				transition-delay: 0.2s;
-			}
-			&:nth-of-type(5) {
-				transition-delay: 0.25s;
-			}
-			&:nth-of-type(6) {
-				transition-delay: 0.3s;
-			}
-			&:nth-of-type(7) {
-				transition-delay: 0.35s;
-			}
-			&:nth-of-type(8) {
-				transition-delay: 0.4s;
-			}
-			&:nth-of-type(9) {
-				transition-delay: 0.45s;
-			}
-			&:nth-of-type(10) {
-				transition-delay: 0.5s;
-			}
-			&:nth-of-type(11) {
-				transition-delay: 0.55s;
-			}
-			&:nth-of-type(12) {
-				transition-delay: 0.6s;
-			}
-			&:nth-of-type(13) {
-				transition-delay: 0.65s;
-			}
+			&:nth-of-type(1) { transition-delay: 0.05s; }
+			&:nth-of-type(2) { transition-delay: 0.1s; }
 		}
 
 		.cs-li-link {
@@ -911,7 +872,6 @@
 				text-decoration: none;
 				white-space: nowrap;
 				width: 100%;
-				/* prevents padding and border from affecting height and width */
 				box-sizing: border-box;
 				padding: calc(12 / 16 * 1rem);
 				color: var(--bodyTextColor);
@@ -931,6 +891,40 @@
 
 				&:before {
 					display: none;
+				}
+			}
+		}
+	}
+}
+
+/* Dark Mode - Global Icon Fix */
+@media only screen and (min-width: 0px) {
+	body.dark-mode {
+		#cs-navigation {
+			.cs-drop-icon {
+				/* turns the dropdown arrow white on both mobile and desktop */
+				filter: grayscale(1) brightness(1000%); 
+			}
+		}
+	}
+}
+
+/* Dark Mode - Desktop Specific Backgrounds */
+@media only screen and (min-width: 1024px) {
+	body.dark-mode {
+		#cs-navigation {
+			.cs-drop-ul {
+				background-color: var(--dark);
+			}
+
+			.cs-li-link {
+				&.cs-drop-link {
+					background-color: var(--medium);
+
+					&:hover {
+						background-color: var(--light);
+						color: #1a1a1a;
+					}
 				}
 			}
 		}

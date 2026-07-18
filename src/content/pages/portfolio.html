@@ -1,0 +1,369 @@
+---
+title: "Private Portfolio | Deep Sea Digital"
+description: "Exclusive video production and photography portfolio."
+permalink: "/portfolio/"
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/assets/css/local.css">
+    <style>
+        /* ============================================ */
+        /*              ISOLATION STYLES                */
+        /* ============================================ */
+        header, footer, #cs-navigation, #cs-footer, .cs-navigation {
+            display: none !important;
+        }
+
+        /* ============================================ */
+        /*              PORTFOLIO STYLES                */
+        /* ============================================ */
+        
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ============================================ */
+        /*             IMMERSIVE HERO SECTION           */
+        /* ============================================ */
+        .hero-section {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Fullscreen Cinematic Background Video */
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        /* Dark overlay to ensure crisp white text is readable */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 8, 0.75);
+            z-index: -1;
+        }
+
+        /* Branding Header */
+        .brand-header {
+            text-align: center;
+            animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            z-index: 2;
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        .brand-header h1 {
+            color: #ffffff; /* Crisp, solid white as requested */
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        
+        .brand-header p {
+            color: #d0d0d0;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        /* Tech Specs / Gear Loadout */
+        .tech-specs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s forwards;
+            opacity: 0;
+            z-index: 2;
+        }
+
+        .spec-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .spec-badge span {
+            color: var(--primary, #00a2ff);
+            font-size: 1rem;
+        }
+
+        /* ============================================ */
+        /*               PORTFOLIO CONTENT              */
+        /* ============================================ */
+        .portfolio-content {
+            padding: 5rem 1rem;
+            background-color: #050505;
+        }
+
+        /* Trusted By Client Banner (Real Logos) */
+        .trusted-by {
+            text-align: center;
+            margin-bottom: 5rem;
+            padding-bottom: 5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .trusted-by h2 {
+            color: #666670;
+            font-size: 0.85rem;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            font-weight: 800;
+        }
+
+        .logo-reel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 3.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .client-logo {
+            max-height: 45px;
+            max-width: 140px;
+            width: auto;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(200%) opacity(0.6);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0%) brightness(100%) opacity(1);
+            transform: scale(1.08);
+        }
+
+        /* Video Grid Structure */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.4s forwards;
+            opacity: 0; 
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            background: #0a0a0a;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .video-wrapper:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 1);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ============================================ */
+        /*              MOBILE OPTIMIZATIONS            */
+        /* ============================================ */
+        @media (max-width: 48rem) {
+            .hero-section { min-height: 60vh; padding: 4rem 1rem; }
+            .portfolio-content { padding: 3rem 1rem; }
+            .tech-specs { gap: 0.75rem; flex-direction: column; align-items: center; }
+            .spec-badge { width: fit-content; }
+            .logo-reel { gap: 2.5rem; flex-direction: column; }
+            .client-logo { max-height: 40px; max-width: 120px; }
+            .video-grid { gap: 1.5rem; }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<!-- ============================================ -->
+<!--             IMMERSIVE HERO SECTION           -->
+<!-- ============================================ -->
+<section class="hero-section">
+    <!-- Cinematic Background Video -->
+    <video class="hero-video-bg" autoplay muted loop playsinline>
+        <source src="/assets/images/hero-main.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+
+    <!-- Header Content -->
+    <div class="brand-header">
+        <h1>Deep Sea Digital</h1>
+        <p>Selected Video Productions & Commercial Assets</p>
+    </div>
+
+    <!-- Tech Specs / Gear Flex -->
+    <div class="tech-specs">
+        <div class="spec-badge"><span>🎥</span> Canon R5C 8K Cinema</div>
+        <div class="spec-badge"><span>🔭</span> Canon RF 24-70mm f/2.8</div>
+        <div class="spec-badge"><span>🎨</span> DaVinci Resolve Pipeline</div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!--                PORTFOLIO CONTENT             -->
+<!-- ============================================ -->
+<div class="portfolio-content">
+    <div class="cs-container" style="max-width: 1400px; margin: 0 auto;">
+        
+        <!-- Trusted By Section (Real Logos + Clickable Links) -->
+        <div class="trusted-by">
+            <h2>Trusted By Industry Leaders</h2>
+            <div class="logo-reel">
+                <!-- Del Records -->
+                <a href="https://delrecords.com/" target="_blank" rel="noopener" aria-label="Del Records">
+                    <img src="/assets/images/del-records-logo.png" alt="Del Records" class="client-logo">
+                </a>
+                
+                <!-- The Exotics Network -->
+                <a href="https://www.theexoticsnetwork.com/" target="_blank" rel="noopener" aria-label="The Exotics Network">
+                    <img src="/assets/images/exotics-network-logo.webp" alt="The Exotics Network" class="client-logo">
+                </a>
+                
+                <!-- 27 Car Collection -->
+                <a href="https://www.instagram.com/27_carcollection/" target="_blank" rel="noopener" aria-label="27 Car Collection">
+                    <img src="/assets/images/27 Car Collection.png" alt="27 Car Collection" class="client-logo">
+                </a>
+                
+                <!-- TOC Public Relations -->
+                <a href="https://tocpublicrelations.com/" target="_blank" rel="noopener" aria-label="TOC Public Relations">
+                    <img src="/assets/images/tocpr-logo-full-2.png" alt="TOC Public Relations" class="client-logo">
+                </a>
+            </div>
+        </div>
+
+        <!-- Video Grid -->
+        <div class="video-grid">
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/475f5cd0e2f9aad88623a1c6f02ffcdf/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/1af0d55b7490de117967ee6579a0fd3b/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/9b7a8551f6e929d3f1165b534a277f5b/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/fb6c73702a742557a64a24f721ff709f/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/1bd2c24520c75119ee1139610fcc1078/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/81060b8a281588dbc6098afac17b86eb/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/d01c11451f94ebbd75dd8d138f43fa9e/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/c1e049c114fe799fe3609839091a5a39/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/e05a37661c041140518ae8d3bb424c3e/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/8b8a05ba52f0200ed125516e3f973b66/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/7a69b6ea2597e3e57929c32b6e2e90b4/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/191209113dc21637973981094d7ec91f/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/4d599d1ee6c5e6752aa73e20103ee2bb/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/b09194fba6b72932f783da62ee082231/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/a6901bf147fd7249359a17018d0a51d8/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/6d123083367b2bdc8d9310f15b73264c/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/ecf8d4208815720a3927fb9831964dab/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/76f31f784684bf080842ce082a92c52f/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/f10d0109f0b4cc3279658199256db898/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/37eb3390d6931be00d7fc5f4ea7a7ff7/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/55933ddefea398295bdb11068ce640de/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://customer-p2750f0weugyzc3g.cloudflarestream.com/296e9f0b51cd362bee8539c6e185fcd1/iframe" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}

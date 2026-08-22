@@ -1,0 +1,732 @@
+---
+title: "DEL Records Concept Architecture | Deep Sea Digital"
+description: "A complete speculative serverless migration and UI redesign for DEL Records. Hand-coded for maximum performance and automated data syncing."
+permalink: "/portfolio/del-records/"
+tags: "sitemap"
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/assets/css/critical.css" />
+
+    {% if client.isProduction %}
+        <link rel="preload" href="/assets/css/local.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript>
+            <link rel="stylesheet" href="/assets/css/local.css">
+        </noscript>
+    {% else %}
+        <link rel="stylesheet" href="/assets/css/local.css" />
+    {% endif %}
+
+    <style>
+        /* ============================================ */
+        /*         EPIC CINEMATIC / TECH HERO           */
+        /* ============================================ */
+        #epic-hero {
+            padding: clamp(12rem, 20vw, 15rem) 1rem clamp(5rem, 10vw, 8rem);
+            background-color: var(--dark);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Cinematic Background Image Overlay - FADES TO BLACK EARLY */
+        #epic-hero .cs-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            z-index: 0;
+        }
+
+        #epic-hero .cs-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            opacity: 0.25; 
+            filter: grayscale(100%) contrast(120%);
+        }
+
+        /* Aggressive gradient fade so the image completely vanishes before the dashboard stats */
+        #epic-hero .cs-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            background: linear-gradient(to bottom, transparent 0%, var(--dark) 60%, var(--dark) 100%);
+            z-index: 1;
+        }
+
+        #epic-hero .cs-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 80rem;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #epic-hero .cs-topper {
+            color: var(--primaryLight);
+            font-size: 0.875rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        #epic-hero .cs-topper::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primaryLight);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primaryLight);
+        }
+
+        #epic-hero .cs-title {
+            color: #fff;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            max-width: 60rem;
+            letter-spacing: -0.02em;
+        }
+
+        #epic-hero .cs-text {
+            color: var(--bodyTextColorWhite);
+            opacity: 0.8;
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            line-height: 1.6;
+            max-width: 45rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Brutalist Tech Specs Dashboard */
+        #epic-hero .cs-dashboard {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 3rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        @media (min-width: 48rem) {
+            #epic-hero .cs-dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 64rem) {
+            #epic-hero .cs-dashboard {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        #epic-hero .cs-stat {
+            display: flex;
+            flex-direction: column;
+            border-left: 2px solid var(--primary);
+            padding-left: 1.25rem;
+        }
+
+        #epic-hero .cs-stat-value {
+            color: #fff;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 900;
+            margin-bottom: 0.25rem;
+            line-height: 1.1;
+        }
+
+        #epic-hero .cs-stat-label {
+            color: var(--bodyTextColorWhite);
+            opacity: 0.6;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================================ */
+        /*              THE CHALLENGE                   */
+        /* ============================================ */
+        #case-overview {
+            padding: var(--sectionPadding);
+            background: #fff;
+        }
+        body.dark-mode #case-overview { background: var(--medium); }
+
+        #case-overview .cs-container {
+            max-width: 80rem;
+            margin: auto;
+        }
+
+        #case-overview .cs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 64rem) {
+            #case-overview .cs-grid { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 6rem;
+            }
+        }
+
+        .cs-overview-block .cs-h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 900;
+            color: var(--headerColor);
+            margin-bottom: 1.25rem;
+        }
+        body.dark-mode .cs-overview-block .cs-h3 { color: #fff; }
+
+        .cs-overview-block p {
+            color: var(--bodyTextColor);
+            line-height: 1.6;
+            font-size: 1.125rem;
+        }
+        body.dark-mode .cs-overview-block p { color: var(--bodyTextColorWhite); opacity: 0.8; }
+
+        /* ============================================ */
+        /*              PAGESPEED SECTION               */
+        /* ============================================ */
+        #case-pagespeed {
+            padding: var(--sectionPadding);
+            background: #f7f7f7;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        body.dark-mode #case-pagespeed { 
+            background: var(--dark); 
+            border-color: rgba(255,255,255,0.05);
+        }
+
+        #case-pagespeed .cs-container {
+            max-width: 80rem;
+            margin: auto;
+        }
+
+        /* Strict Centering Overrides */
+        #case-pagespeed .cs-content {
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 3rem auto;
+        }
+        
+        #case-pagespeed .cs-topper, 
+        #case-pagespeed .cs-title {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .cs-pagespeed-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 60rem;
+            margin: 0 auto;
+        }
+        @media (min-width: 48rem) {
+            .cs-pagespeed-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .cs-score-card {
+            background: #fff;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+        body.dark-mode .cs-score-card {
+            background: var(--medium);
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .cs-score-label {
+            padding: 1.25rem;
+            font-weight: 900;
+            font-size: 1.125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+        .cs-score-card img { width: 100%; height: auto; display: block; }
+
+        /* ============================================ */
+        /*             FEATURE DEEP DIVES               */
+        /* ============================================ */
+        .case-feature {
+            padding: var(--sectionPadding);
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        body.dark-mode .case-feature { 
+            background: var(--medium); 
+            border-color: rgba(255,255,255,0.05);
+        }
+
+        .case-feature:nth-child(even) { background: #f7f7f7; }
+        body.dark-mode .case-feature:nth-child(even) { background: var(--dark); }
+
+        .case-feature .cs-container {
+            max-width: 80rem;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        @media (min-width: 64rem) {
+            .case-feature .cs-container { 
+                grid-template-columns: 1.2fr 1fr; 
+                gap: 5rem;
+            }
+            .case-feature.reverse .cs-container { grid-template-columns: 1fr 1.2fr; }
+            .case-feature.reverse .cs-content { order: 1; }
+            .case-feature.reverse .cs-interactive-display { order: 2; }
+        }
+
+        .case-feature .cs-h3 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 900;
+            color: var(--headerColor);
+            margin-bottom: 1.25rem;
+            line-height: 1.1;
+        }
+        body.dark-mode .case-feature .cs-h3 { color: #fff; }
+
+        .case-feature .cs-text {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Display Windows (Both Interactive and Static) */
+        .cs-interactive-display {
+            background: #000;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cs-display-window {
+            width: 100%;
+            height: clamp(250px, 40vw, 450px);
+            position: relative;
+            background: #111;
+        }
+
+        .cs-display-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .cs-display-img.cs-active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        /* UI Toggle Tabs */
+        .cs-display-controls {
+            display: flex;
+            background: var(--dark);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cs-control-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 1.25rem 0;
+            font-size: 0.9375rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            border-bottom: 3px solid transparent;
+        }
+
+        .cs-control-btn:hover:not(.cs-active) {
+            background: rgba(255,255,255,0.03);
+            color: #fff;
+        }
+
+        .cs-control-btn.cs-active {
+            color: #fff;
+            border-bottom: 3px solid var(--primary);
+            background: rgba(0, 123, 255, 0.05);
+        }
+
+        /* ============================================ */
+        /*          PROJECT INVESTMENT SUMMARY          */
+        /* ============================================ */
+        #project-summary {
+            padding: var(--sectionPadding);
+            background-color: #020617;
+            position: relative;
+            border-top: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        #project-summary .cs-container {
+            max-width: 60rem;
+            margin: auto;
+            text-align: center;
+        }
+
+        #project-summary .cs-summary-title {
+            color: #fff;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 3rem;
+        }
+
+        #project-summary .cs-summary-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 48rem) {
+            #project-summary .cs-summary-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        #project-summary .cs-summary-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #project-summary .cs-key {
+            color: #38bdf8;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        #project-summary .cs-val {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        #project-summary .cs-summary-text {
+            color: #94a3b8;
+            font-size: 1.125rem;
+            line-height: 1.6;
+            max-width: 50rem;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <!-- ============================================ -->
+    <!--            EPIC CINEMATIC / TECH HERO        -->
+    <!-- ============================================ -->
+    <section id="epic-hero">
+        <picture class="cs-background">
+            <img src="/assets/images/DEL1.webp" alt="DEL Records Architecture Background">
+        </picture>
+        <div class="cs-container">
+            <span class="cs-topper">Serverless Migration</span>
+            <h1 class="cs-title">DEL Records Enterprise Architecture</h1>
+            <p class="cs-text">
+                We engineered a complete replacement of a monolithic AI-builder framework. Powered by Eleventy, automated Node.js data scrapers, and Cloudflare edge deployment to guarantee sub-second load times.
+            </p>
+            
+            <div class="cs-dashboard">
+                <div class="cs-stat">
+                    <span class="cs-stat-value">Eleventy</span>
+                    <span class="cs-stat-label">Core Framework</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">&lt;50ms</span>
+                    <span class="cs-stat-label">Time to First Byte</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">92+</span>
+                    <span class="cs-stat-label">PageSpeed Mobile</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">0 hrs</span>
+                    <span class="cs-stat-label">Weekly Maintenance</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--            PROJECT OVERVIEW                  -->
+    <!-- ============================================ -->
+    <section id="case-overview">
+        <div class="cs-container">
+            <div class="cs-grid">
+                <div class="cs-overview-block">
+                    <h3 class="cs-h3">The Monolithic Challenge</h3>
+                    <p>
+                        As one of the world's most influential independent Regional Mexican labels, DEL Records requires a digital infrastructure that can handle massive traffic spikes. However, their original website was built on a bloated AI builder, leading to failing PageSpeed scores, broken visual artifacts, and a manual process for updating artists and videos that wasted critical internal resources.
+                    </p>
+                </div>
+                <div class="cs-overview-block">
+                    <h3 class="cs-h3">The Serverless Solution</h3>
+                    <p>
+                        We eliminated the builder completely. We hand-coded a flawless, semantic HTML5 structure powered by the Eleventy Static Site Generator. To remove human error entirely, we engineered custom data pipelines that bypass authentication walls to pull newest YouTube drops and scrape live Spotify listener data, injecting it directly into the site via GitHub Actions and Cloudflare deploy hooks.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--             PAGESPEED PROOF                  -->
+    <!-- ============================================ -->
+    <section id="case-pagespeed">
+        <div class="cs-container">
+            <div class="cs-content">
+                <span class="cs-topper">The Performance Leap</span>
+                <h2 class="cs-title">From Failing to Flawless</h2>
+            </div>
+            
+            <div class="cs-pagespeed-grid">
+                <div class="cs-score-card">
+                    <div class="cs-score-label" style="background: rgba(220, 38, 38, 0.08); color: #dc2626; border-bottom: 1px solid rgba(220, 38, 38, 0.1);">Old AI Builder (Score: 43)</div>
+                    <img src="/assets/images/43.webp" alt="Old Site Performance 43" loading="lazy">
+                </div>
+                <div class="cs-score-card">
+                    <div class="cs-score-label" style="background: rgba(16, 185, 129, 0.08); color: #10b981; border-bottom: 1px solid rgba(16, 185, 129, 0.1);">Deep Sea Architecture (Score: 92)</div>
+                    <img src="/assets/images/92.webp" alt="New Site Performance 92" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--     THE 6-PART ENGINEERING DEEP DIVE         -->
+    <!-- ============================================ -->
+    
+    <!-- Feature 1: UI/UX (Standard Layout, Interactive) -->
+    <section class="case-feature">
+        <div class="cs-container">
+            <div class="cs-interactive-display">
+                <div class="cs-display-window">
+                    <img class="cs-display-img cs-active" src="/assets/images/obvious%20lander%20fixed%20to%20much%20more%20pleasing%20uncomplicated%20lander.webp" alt="Updated Cinematic UI">
+                    <img class="cs-display-img" src="/assets/images/obvious%20vibecoded%20home%20page%20lander.webp" alt="Old Clunky UI">
+                </div>
+                <div class="cs-display-controls">
+                    <button class="cs-control-btn cs-active" onclick="toggleDisplay(this, 0)">Engineered Architecture</button>
+                    <button class="cs-control-btn" onclick="toggleDisplay(this, 1)">Original AI Builder</button>
+                </div>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">Visual Hierarchy</span>
+                <h3 class="cs-h3">Cinematic UI/UX</h3>
+                <p class="cs-text">
+                    The original landing page was visually confusing with poor typography scaling and heavy red gradients that distracted from the artists. We overhauled the interface with enterprise-grade typography, subtle noise overlays, and strict visual hierarchy, ensuring fans immediately connect with the music and media.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 2: Infrastructure (Reverse Layout, Interactive) -->
+    <section class="case-feature reverse">
+        <div class="cs-container">
+            <div class="cs-interactive-display">
+                <div class="cs-display-window">
+                    <img class="cs-display-img cs-active" src="/assets/images/artifact%20replaced%20with%20infrastrucutre%20section.webp" alt="Updated Infrastructure Block">
+                    <img class="cs-display-img" src="/assets/images/artifact%20not%20loaded%20in.webp" alt="Old Broken Artifact">
+                </div>
+                <div class="cs-display-controls">
+                    <button class="cs-control-btn cs-active" onclick="toggleDisplay(this, 0)">Engineered Architecture</button>
+                    <button class="cs-control-btn" onclick="toggleDisplay(this, 1)">Original AI Builder</button>
+                </div>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">Code Quality</span>
+                <h3 class="cs-h3">Flawless HTML Semantics</h3>
+                <p class="cs-text">
+                    The original builder left behind broken template artifacts, massive div bloat, and empty data voids. We ripped it all out, alongside writing a custom script to migrate decades of historical news content natively into Markdown. We replaced the entire ecosystem with a bulletproof, semantic HTML5 structure that achieves perfect accessibility scores.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 3: Spotify Data (Standard Layout, Interactive) -->
+    <section class="case-feature">
+        <div class="cs-container">
+            <div class="cs-interactive-display">
+                <div class="cs-display-window">
+                    <img class="cs-display-img cs-active" src="/assets/images/Artists%20hardcoded%20with%20daily%20updates%20that%20sort%20EVERY%20artist%20by%20size%20from%20highest%20to%20lowest%20monthly%20listeners%20reflecting%20the%20days%20accurate%20metrics.webp" alt="Updated Spotify Roster">
+                    <img class="cs-display-img" src="/assets/images/artists%20hardcoded%20and%20stats%20not%20updated.webp" alt="Old Spotify Roster">
+                </div>
+                <div class="cs-display-controls">
+                    <button class="cs-control-btn cs-active" onclick="toggleDisplay(this, 0)">Engineered Architecture</button>
+                    <button class="cs-control-btn" onclick="toggleDisplay(this, 1)">Original AI Builder</button>
+                </div>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">Data Pipelines</span>
+                <h3 class="cs-h3">Automated Spotify Listener Tracking</h3>
+                <p class="cs-text">
+                    We engineered custom GitHub Actions that trigger a cron job every afternoon. The system pings the Spotify API, scrapes the fresh monthly listener data for every artist, updates their stats on the frontend, and automatically re-ranks the roster from largest to smallest. Zero human intervention required.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 4: YouTube API Syncing (Reverse Layout, Interactive) -->
+    <section class="case-feature reverse">
+        <div class="cs-container">
+            <div class="cs-interactive-display">
+                <div class="cs-display-window">
+                    <img class="cs-display-img cs-active" src="/assets/images/latest%20videos%20updated%20everyday%20and%20grid%20with%20top%203%20newest%20bottom%203%20most%20viewed.webp" alt="Updated Video Grid">
+                    <img class="cs-display-img" src="/assets/images/latest%20videos%20covered%20by%20play%20button%20and%20not%20updating.webp" alt="Old Video Layout">
+                </div>
+                <div class="cs-display-controls">
+                    <button class="cs-control-btn cs-active" onclick="toggleDisplay(this, 0)">Engineered Architecture</button>
+                    <button class="cs-control-btn" onclick="toggleDisplay(this, 1)">Original AI Builder</button>
+                </div>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">Automation Engineering</span>
+                <h3 class="cs-h3">Dynamic Video Syncing</h3>
+                <p class="cs-text">
+                    Instead of staff wasting time manually copying and pasting YouTube embed codes every week, our serverless build does it for them. Custom scripts fetch the latest drops directly from the label's channel during the build process, seamlessly injecting them into a high-performance, responsive grid.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 5: Dynamic Content Pages (Standard Layout, STATIC) -->
+    <section class="case-feature">
+        <div class="cs-container">
+            <div class="cs-interactive-display">
+                <div class="cs-display-window">
+                    <!-- Static Image, no toggle buttons needed -->
+                    <img class="cs-display-img cs-active" src="/assets/images/about%20page%20fixed%20to%20dynamic%20info%20page%20talking%20about%20the%20past-present-and%20future.webp" alt="Updated About Page">
+                </div>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">Information Architecture</span>
+                <h3 class="cs-h3">Dynamic Content Modules</h3>
+                <p class="cs-text">
+                    We completely overhauled the label's static, unengaging text blocks. The new architecture processes company data into engaging, data-driven timelines and interactive historical roadmaps that load instantly across all devices.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 6: Form Logic (Reverse Layout, STATIC) -->
+    <section class="case-feature reverse">
+        <div class="cs-container">
+            <div class="cs-interactive-display">
+                <div class="cs-display-window">
+                    <!-- Static Image, no toggle buttons needed -->
+                    <img class="cs-display-img cs-active" src="/assets/images/custom%20new%20form%20sections%20when%20demo%20is%20clicked%20in%20contact%20page.webp" alt="Updated Form Logic">
+                </div>
+            </div>
+            <div class="cs-content">
+                <span class="cs-topper">Conditional Logic</span>
+                <h3 class="cs-h3">Advanced Submission Routing</h3>
+                <p class="cs-text">
+                    We designed structured, dynamic inquiry forms that adapt instantly based on user selection. Demo submissions require specific social and drive links, while press inquiries route differently, effectively streamlining the label's massive influx of internal A&R and booking communication.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--          PROJECT INVESTMENT SUMMARY          -->
+    <!-- ============================================ -->
+    <section id="project-summary">
+        <div class="cs-container">
+            <h3 class="cs-summary-title">Project Investment & Scope</h3>
+            <div class="cs-summary-grid">
+                <div class="cs-summary-item">
+                    <span class="cs-key">Timeline</span>
+                    <span class="cs-val">4 - 6 Weeks</span>
+                </div>
+                <div class="cs-summary-item">
+                    <span class="cs-key">Maintenance</span>
+                    <span class="cs-val">Fully Automated</span>
+                </div>
+                <div class="cs-summary-item">
+                    <span class="cs-key">Est. Investment</span>
+                    <span class="cs-val">Starting at $3,500+</span>
+                </div>
+            </div>
+            <p class="cs-summary-text">
+                Enterprise serverless migrations and custom API integrations are quoted based on data pipeline complexity. Contact us for a technical consultation and precise project scoping for your brand.
+            </p>
+        </div>
+    </section>
+
+    {% include 'sections/cta.html' %}
+
+    <!-- JavaScript for the Interactive Displays -->
+    <script>
+        function toggleDisplay(btn, index) {
+            // Find the parent display container
+            const container = btn.closest('.cs-interactive-display');
+            
+            // Get all buttons and images in this specific container
+            const btns = container.querySelectorAll('.cs-control-btn');
+            const imgs = container.querySelectorAll('.cs-display-img');
+
+            // Reset all buttons and images
+            btns.forEach(b => b.classList.remove('cs-active'));
+            imgs.forEach(i => i.classList.remove('cs-active'));
+
+            // Activate the clicked button and corresponding image
+            btn.classList.add('cs-active');
+            imgs[index].classList.add('cs-active');
+        }
+    </script>
+{% endblock %}

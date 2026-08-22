@@ -1199,6 +1199,7 @@
 		}
 	}
 }
+
 // NEW STANDALONE VIDEO (add right below cs-standalone-picture)
 .cs-standalone-video {
     position: relative; 
@@ -1226,6 +1227,7 @@
         border: none;
     }
 }
+
 /*-- -------------------------- -->
 <---            CTA             -->
 <--- -------------------------- -*/
@@ -1541,6 +1543,7 @@
 		}
 	}
 }
+
 /*-- -------------------------- -->
 <---        Why Choose          -->
 <--- -------------------------- -*/
@@ -1717,6 +1720,7 @@
         filter: grayscale(1) brightness(1000%);
     }
 }
+
 /* ============================================ */
 /* Animated Logo Switching                      */
 /* ============================================ */
@@ -1755,4 +1759,269 @@ body.dark-mode .cs-logo-light {
     opacity: 0;
     transform: scale(0.8); /* Shrinks away */
     pointer-events: none;
+}
+
+/* ============================================ */
+/*          DEL RECORDS CASE STUDY              */
+/* ============================================ */
+/* Mobile - 360px */
+@media only screen and (min-width: 0px) {
+    #del-case-study {
+        padding: var(--sectionPadding);
+        background-color: #f7f7f7;
+        
+        .cs-container {
+            width: 100%;
+            max-width: calc(1280 / 16 * 1rem);
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(3rem, 6vw, 4rem);
+        }
+        
+        .cs-content {
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cs-title {
+            color: var(--headerColor);
+            margin-bottom: 1rem;
+        }
+        
+        .cs-text {
+            color: var(--bodyTextColor);
+            max-width: 45rem;
+            margin-bottom: 2rem;
+        }
+
+        .cs-button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cs-button-outline {
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 0 1.5rem;
+            height: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 0.25rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .cs-button-outline:hover {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        /* PageSpeed Small Grid */
+        .cs-pagespeed-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 40rem; /* Constrains it from blowing up */
+            margin: 0 auto;
+        }
+
+        .cs-score-card {
+            background: #fff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+        }
+
+        .cs-score-label {
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.875rem;
+        }
+
+        /* Features Grid */
+        .cs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .cs-card {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s, box-shadow 0.3s;
+            
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* Image Toggle System */
+        .cs-card-img-box {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+                
+                &.cs-active {
+                    opacity: 1;
+                    visibility: visible;
+                    z-index: 2;
+                }
+            }
+        }
+
+        .cs-toggle-wrapper {
+            display: flex;
+            background: #f0f0f0;
+            border-bottom: 1px solid #e5e7eb;
+            border-top: 1px solid #e5e7eb;
+            
+            .cs-toggle-btn {
+                flex: 1;
+                background: none;
+                border: none;
+                padding: 0.75rem 0;
+                font-size: 0.875rem;
+                font-weight: 700;
+                color: var(--bodyTextColor);
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+                font-family: inherit;
+
+                &.cs-active {
+                    background: var(--primary);
+                    color: #fff;
+                }
+                
+                &:hover:not(.cs-active) {
+                    background: #e5e7eb;
+                }
+            }
+        }
+
+        .cs-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .cs-h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--headerColor);
+            margin: 0 0 0.75rem 0;
+        }
+
+        .cs-item-text {
+            font-size: 1rem;
+            color: var(--bodyTextColor);
+            margin: 0;
+            line-height: 1.5;
+        }
+    }
+}
+
+/* Tablet PageSpeed Layout */
+@media only screen and (min-width: 48rem) {
+    #del-case-study {
+        .cs-pagespeed-wrapper {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .cs-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+/* Desktop Grid Layout */
+@media only screen and (min-width: 64rem) {
+    #del-case-study .cs-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Dark Mode Case Study */
+@media only screen and (min-width: 0px) {
+    body.dark-mode {
+        #del-case-study {
+            background-color: var(--dark);
+            
+            .cs-title, .cs-text { color: var(--bodyTextColorWhite); }
+            
+            .cs-score-card, .cs-card {
+                background: var(--medium);
+                border-color: rgba(255,255,255,0.1);
+            }
+            
+            .cs-card:hover {
+                border-color: var(--primary);
+            }
+            
+            .cs-h3 { color: #fff; }
+            .cs-item-text { color: var(--bodyTextColorWhite); opacity: 0.8; }
+            
+            .cs-card-img-box, .cs-toggle-wrapper {
+                border-color: rgba(255,255,255,0.1);
+            }
+
+            .cs-toggle-wrapper {
+                background: var(--dark);
+                
+                .cs-toggle-btn {
+                    color: var(--bodyTextColorWhite);
+                    
+                    &.cs-active {
+                        background: var(--primary);
+                    }
+                    
+                    &:hover:not(.cs-active) {
+                        background: rgba(255,255,255,0.05);
+                    }
+                }
+            }
+        }
+    }
 }

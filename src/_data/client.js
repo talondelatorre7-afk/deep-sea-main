@@ -1,6 +1,6 @@
 module.exports = {
     name: "Deep Sea Digital",
-    email: "talondelatorre7@gmail.com",
+    email: "contact@deepseadigital.online",
     phoneForTel: "909-919-0912",
     phoneFormatted: "(909) 919-0912",
     socials: {

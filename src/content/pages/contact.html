@@ -1,6 +1,6 @@
 ---
 title: "Get Your Free Media Audit | Deep Sea Digital"
-description: "Ready to scale your business with cinema-grade visuals and a high-performance website? Contact Talon at Deep Sea Digital today."
+description: "Ready to scale your business with cinema-grade visuals and a high-performance website? Contact us at Deep Sea Digital today."
 permalink: "/contact/"
 ---
 
@@ -9,17 +9,12 @@ permalink: "/contact/"
 {% block head %}
     <link rel="stylesheet" href="/assets/css/contact.css">
     <style>
-        /* This hides the honeypot field from human visitors */
-        .hidden {
-            display: none !important;
-        }
-        
         /* Forces the SMS opt-in to span the full width of the form grid */
         .opt-in-wrapper {
             grid-column: 1 / -1 !important;
             width: 100% !important;
             max-width: none !important;
-            margin-top: -0.75rem !important; /* Pulls the checkbox closer to the text area */
+            margin-top: -0.75rem !important; 
             margin-bottom: 1.5rem !important;
         }
 
@@ -53,6 +48,16 @@ permalink: "/contact/"
             flex-shrink: 0 !important;
             accent-color: var(--primary) !important;
         }
+
+        /* Submission Status Messages */
+        #form-status {
+            margin-top: 1rem;
+            font-weight: 700;
+            text-align: center;
+            display: none;
+        }
+        .status-success { color: #10b981; } /* Green */
+        .status-error { color: #ef4444; }   /* Red */
     </style>
 {% endblock %}
 
@@ -82,14 +87,9 @@ permalink: "/contact/"
                     </p>
                 </div>
 
-                <!-- Web3Forms Integration -->
-                <form id="cs-form-265" action="https://api.web3forms.com/submit" method="POST">
-                    <!-- Your Verified Access Key -->
-                    <input type="hidden" name="access_key" value="a6d2c7aa-57a7-4ab9-b854-53a39936f865">
+                <!-- Native Cloudflare Pages Form -->
+                <form id="cs-form-265">
                     
-                    <!-- Web3Forms Anti-Spam Honeypot Field -->
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
                     <label>
                         Name
                         <input required type="text" id="name-265" name="name" placeholder="Full Name">
@@ -108,7 +108,7 @@ permalink: "/contact/"
                     </label>
                     <label class="cs-label-message">
                         What is your main goal? (More leads, better branding, etc.)
-                        <textarea required name="Message" id="message-265" placeholder="Tell us about your project..."></textarea>
+                        <textarea required name="message" id="message-265" placeholder="Tell us about your project..."></textarea>
                     </label>
                     
                     <!-- SMS Opt-In Checkbox -->
@@ -119,7 +119,8 @@ permalink: "/contact/"
                         </label>
                     </div>
 
-                    <button class="cs-button-solid cs-submit" type="submit">Submit My Request</button>
+                    <button class="cs-button-solid cs-submit" type="submit" id="submit-btn">Submit My Request</button>
+                    <div id="form-status"></div>
                 </form>
             </div>
 
@@ -143,4 +144,50 @@ permalink: "/contact/"
         </div>
     </section>
 
+    <!-- Cloudflare Form Submission Logic -->
+    <script>
+        document.getElementById('cs-form-265').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Stop the default form submission
+
+            const form = e.target;
+            const submitBtn = document.getElementById('submit-btn');
+            const statusDiv = document.getElementById('form-status');
+            
+            // UI Feedback
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            statusDiv.style.display = 'none';
+            statusDiv.className = '';
+
+            // Package the data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // Send the data to our Cloudflare Function endpoint
+                const response = await fetch('/api/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    statusDiv.textContent = 'Message sent successfully! We will be in touch shortly.';
+                    statusDiv.classList.add('status-success');
+                    form.reset(); // Clear the form
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            } catch (error) {
+                console.error('Submission failed:', error);
+                statusDiv.textContent = 'Oops! Something went wrong. Please try emailing us directly.';
+                statusDiv.classList.add('status-error');
+            } finally {
+                // Reset button UI
+                statusDiv.style.display = 'block';
+                submitBtn.textContent = 'Submit My Request';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
 {% endblock %}

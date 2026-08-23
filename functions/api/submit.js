@@ -1,6 +1,6 @@
 export async function onRequestPost(context) {
     try {
-        // 1. Parse the incoming JSON from contact.html
+        // 1. Parse incoming form data
         const data = await context.request.json();
         
         const name = data.name || 'No Name Provided';
@@ -10,7 +10,7 @@ export async function onRequestPost(context) {
         const message = data.message || 'No Message Provided';
         const optIn = data.SMS_Opt_In === 'on' ? 'Yes' : 'No';
 
-        // 2. Format the email notification body
+        // 2. Format the email content
         const emailContent = `
 New Lead from Deep Sea Digital Website!
 
@@ -24,53 +24,42 @@ Message:
 ${message}
         `;
 
-        // 3. Send email via MailChannels API
-        const send_request = new Request('https://api.mailchannels.com/tx/v1/send', {
-            method: 'POST',
+        // 3. Read API Key securely from Cloudflare Environment Variables
+        const RESEND_API_KEY = context.env.RESEND_API_KEY;
+
+        if (!RESEND_API_KEY) {
+            throw new Error("RESEND_API_KEY environment variable is not set in Cloudflare.");
+        }
+
+        const resendResponse = await fetch("https://api.resend.com/emails", {
+            method: "POST",
             headers: {
-                'content-type': 'application/json',
+                "Authorization": `Bearer ${RESEND_API_KEY}`,
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                personalizations: [
-                    {
-                        // Set to your new custom forwarding address
-                        to: [{ email: 'contact@deepseadigital.online', name: 'Deep Sea Digital' }],
-                    },
-                ],
-                from: {
-                    email: 'website@deepseadigital.online',
-                    name: 'Deep Sea Digital Bot',
-                },
-                reply_to: {
-                    email: email,
-                    name: name,
-                },
+                from: "Deep Sea Lead <onboarding@resend.dev>",
+                to: ["contact@deepseadigital.online"],
+                reply_to: email,
                 subject: `New Lead: ${name} (${business})`,
-                content: [
-                    {
-                        type: 'text/plain',
-                        value: emailContent,
-                    },
-                ],
-            }),
+                text: emailContent
+            })
         });
 
-        const resp = await fetch(send_request);
-        
-        if (resp.ok) {
-             return new Response(JSON.stringify({ success: true }), {
-                 status: 200,
-                 headers: { 'Content-Type': 'application/json' }
-             });
+        if (resendResponse.ok) {
+            return new Response(JSON.stringify({ success: true }), {
+                status: 200,
+                headers: { "Content-Type": "application/json" }
+            });
         } else {
-             const errorText = await resp.text();
-             throw new Error(`Failed to send email: ${errorText}`);
+            const errorText = await resendResponse.text();
+            throw new Error(`Resend Error: ${errorText}`);
         }
 
     } catch (err) {
         return new Response(JSON.stringify({ success: false, error: err.message }), {
             status: 500,
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         });
     }
 }

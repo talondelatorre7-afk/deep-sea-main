@@ -39,7 +39,7 @@ ${message}
             },
             body: JSON.stringify({
                 from: "Deep Sea Lead <onboarding@resend.dev>",
-                to: ["contact@deepseadigital.online"],
+                to: ["talondelatorre7@gmail.com"],
                 reply_to: email,
                 subject: `New Lead: ${name} (${business})`,
                 text: emailContent

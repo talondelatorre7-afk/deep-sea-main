@@ -1,0 +1,18 @@
+# Deep Sea Digital
+
+Welcome to the AI-readable directory for Deep Sea Digital, a web design and video production agency based in Chino, California.
+
+## Primary Services
+* [Web Design](https://deepseadigital.online/web-design/)
+* [Video Production](https://deepseadigital.online/video-production/)
+
+## Agency Information
+* [Home](https://deepseadigital.online/)
+* [About Us](https://deepseadigital.online/about/)
+* [Pricing](https://deepseadigital.online/pricing/)
+* [Client Reviews](https://deepseadigital.online/reviews/)
+* [Contact Us](https://deepseadigital.online/contact/)
+
+## Portfolio
+* [All Work](https://deepseadigital.online/portfolio/)
+* [Del Records Project](https://deepseadigital.online/portfolio/del-records/)

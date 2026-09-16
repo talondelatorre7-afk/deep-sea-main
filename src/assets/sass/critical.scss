@@ -6,204 +6,194 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 /*-- -------------------------- -->
-<---           Hero             -->
+<---      Static Deep Hero      -->
 <--- -------------------------- -*/
 
-/* Mobile - 360px */
 @media only screen and (min-width: 0rem) {
+    /* Kept Dark All The Time: No dark-mode media query needed */
     #hero-143 {
-        /* Centers button */
-        text-align: center;
-        /* 144px - 300px - leaving extra space for the navigation */
-        padding: clamp(9rem, 25.95vw, 18.75rem) calc(16 / 16 * 1rem) 0;
-        /* 130px - 450px */
-        padding-bottom: clamp(12.125rem, 30.95vw, 28.125rem);
+        /* Oak Harbor Style Padding - Top padding forces it seamlessly under the header */
+        padding: clamp(10rem, 25.95vw, 18.75rem) calc(16 / 16 * 1rem) clamp(3.75rem, 7.82vw, 6.25rem);
+        
+        /* Updated Gradient: Bright ocean blue at the top, fading into #0b132b at the bottom */
+        background: linear-gradient(180deg, #0a1535 0%, #0b132b 85%);
         position: relative;
         z-index: 1;
-        /* Prevents white rectangle pseudos from overlapping the sections below */
         overflow: hidden;
 
-        &:before {
-            /* Left side of the triangle */
-            content: "";
-            width: calc(500 / 16 * 1rem);
-            /* make really long so it covers the whole screen all the way to desktop */
-            height: calc(4000 / 16 * 1rem);
-            background: #fff;
-            opacity: 1;
-            transform: rotate(-67deg);
-            transform-origin: center;
+        /* Deep Ocean Background Layer */
+        .cs-ocean-bg {
             position: absolute;
-            display: block;
-            bottom: calc(-2235 / 16 * 1rem);
-            /* this makes the right edge sit at the 50% line at all times */
-            right: 50%;
-            z-index: 0;
-        }
-
-        &:after {
-            /* Right side of the triangle */
-            content: "";
-            width: calc(500 / 16 * 1rem);
-            height: calc(4000 / 16 * 1rem);
-            background: #fff;
-            opacity: 1;
-            transform: rotate(67deg);
-            transform-origin: center;
-            position: absolute;
-            display: block;
-            bottom: calc(-2235 / 16 * 1rem);
-            /* this makes the left edge sit at the 50% line at all times */
-            left: 50%;
-            z-index: 0;
-        }
-
-        .cs-background {
-            width: 100%;
-            height: 100%;
-            display: block;
-            position: absolute;
-            top: 0;
+            top: 0; 
             left: 0;
-            z-index: -2;
-
-            &:before {
-                /* Overlay */
-                content: "";
-                width: 100%;
-                height: 100%;
-                background: #000;
-                opacity: 0.7;
-                position: absolute;
-                display: block;
-                top: 0;
-                left: 0;
-                z-index: 1;
-                /* prevents the cursor from interacting with it */
-                pointer-events: none;
-            }
-
-            img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-            }
+            width: 100%; 
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
         }
-// NEW STANDALONE VIDEO (add right below cs-standalone-picture)
-.cs-standalone-video {
-    position: relative; 
-    display: block;
-    width: 100%;
-    max-width: calc(522 / 16 * 1em); // Binds the max-width on desktop
-    height: auto;
-    aspect-ratio: 522 / 581; // Matches the standard container layout for consistency
-    margin: 0 auto; 
-    border-radius: calc(24 / 16 * 1em);
-    overflow: hidden;
-    /* A deep dark background that suggests technical depth and high-end performance */
-    background-color: #030a13; // Dark sea/brutalist tone
 
-    .cs-video-element {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        /* Change this from 'cover' to 'contain' to ensure the entire video frames are visible without cropping */
-        object-fit: cover; 
-        object-position: center; // Centers the video content vertically and horizontally
-        /* High-performance styling: ensuring no border or artifacts */
-        border: none;
-    }
-}
         .cs-container {
             width: 100%;
             max-width: calc(1280 / 16 * 1rem);
             margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: clamp(3rem, 8vw, 5rem);
+        }
+
+        .cs-content {
+            text-align: center;
+            max-width: calc(630 / 16 * 1rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Preserved your custom topper color */
+        .cs-topper {
+            color: #007bff; 
         }
 
         .cs-title {
-            /* 39px - 61px */
-            font-size: clamp(2.4375rem, 6.4vw, 3.8125rem);
-            font-weight: 700;
-            line-height: 1.2em;
-            text-align: center;
-            max-width: calc(829 / 16 * 1rem);
-            /* 16px - 24px */
-            margin: 0 auto clamp(1rem, 4vw, 1.5rem);
             color: #fff;
-            position: relative;
-
-            &:after {
-                /* Divider Line */
-                content: "";
-                /* 60px - 100px */
-                width: clamp(3.75rem, 9.5vw, 6.25rem);
-                /* 4px - 8px */
-                height: clamp(0.25rem, 0.8vw, 0.5rem);
-                /* 16px - 24px */
-                margin: clamp(1rem, 4vw, 1.5rem) auto clamp(1rem, 4vw, 1.5rem);
-                background: var(--primary);
-                opacity: 1;
-                position: relative;
-                display: block;
-            }
+            margin-bottom: 1rem;
         }
 
         .cs-text {
-            /* 16px - 25px */
-            font-size: clamp(1rem, 1.95vw, 1.5625rem);
-            line-height: 1.5em;
-            text-align: center;
-            width: 100%;
-            /* 464px - 800px */
-            max-width: clamp(29rem, 60vw, 50rem);
-            margin: 0 auto;
-            /* 40px - 48px */
-            margin-bottom: clamp(2.5rem, 4vw, 3rem);
             color: #fff;
+            margin-bottom: 2rem;
+            opacity: 0.9;
         }
-    }
-}
 
-/* Desktop - 1300px (To make image background parallax) */
-@media only screen and (min-width: 81.25rem) {
-    #hero-143 {
-        background: url("/assets/images/landing.jpg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        /* makes the parallax effect */
-        background-attachment: fixed;
+        .cs-button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
 
-        .cs-background {
+        .cs-picture {
+            width: 100%;
+            max-width: calc(600 / 16 * 1rem);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+            
             img {
-                display: none;
+                width: 100%;
+                height: auto;
             }
+        }
+
+        /* ========================================= */
+        /*           TINY BUBBLE ANIMATION           */
+        /* ========================================= */
+        .cs-bubble {
+            position: absolute;
+            bottom: -20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: floatUp infinite linear;
+        }
+        
+        .cs-bubble-1 { width: 4px; height: 4px; left: 15%; animation-duration: 18s; animation-delay: 2s; }
+        .cs-bubble-2 { width: 7px; height: 7px; left: 45%; animation-duration: 22s; animation-delay: 0s; }
+        .cs-bubble-3 { width: 3px; height: 3px; left: 75%; animation-duration: 25s; animation-delay: 5s; }
+        .cs-bubble-4 { width: 6px; height: 6px; left: 85%; animation-duration: 19s; animation-delay: 11s; }
+        .cs-bubble-5 { width: 5px; height: 5px; left: 25%; animation-duration: 21s; animation-delay: 7s; }
+        .cs-bubble-6 { width: 4px; height: 4px; left: 60%; animation-duration: 23s; animation-delay: 3s; }
+        .cs-bubble-7 { width: 8px; height: 8px; left: 35%; animation-duration: 20s; animation-delay: 9s; }
+
+        /* ========================================= */
+        /*             FLOATING SVGS                 */
+        /* ========================================= */
+        .cs-floating-svg {
+            position: absolute;
+            opacity: 0.3; /* Adjusted so any colored SVG shows up smoothly */
+            z-index: 0;
+        }
+        
+        /* Updated keyframes use VW units so they actually swim entirely across the screen! */
+        .cs-sub {
+            top: 20%;
+            left: -20%;
+            width: 150px;
+            animation: swimRight 35s linear infinite;
+        }
+        
+        .cs-diver {
+            top: 60%;
+            right: 15%;
+            width: 100px;
+            animation: floatAround 12s ease-in-out infinite alternate;
+        }
+        
+        .cs-fish {
+            top: 35%;
+            right: -20%;
+            width: 80px;
+            animation: swimLeft 25s linear infinite;
         }
     }
 }
 
-/* Dark Mode */
-@media only screen and (min-width: 0rem) {
-    body.dark-mode {
-        #hero-143 {
-            &:before,
-            &:after {
-                background: var(--dark);
-            }
+/* Keyframes for Hero Animations */
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
 
-            .cs-background {
-                &:before {
-                    opacity: 0.85;
-                }
-            }
+@keyframes swimRight {
+    0% { transform: translateX(0vw) translateY(0); }
+    50% { transform: translateX(60vw) translateY(-30px); }
+    100% { transform: translateX(120vw) translateY(20px); }
+}
+
+@keyframes swimLeft {
+    0% { transform: translateX(0vw) translateY(0); }
+    50% { transform: translateX(-60vw) translateY(40px); }
+    100% { transform: translateX(-120vw) translateY(-20px); }
+}
+
+@keyframes floatAround {
+    0% { transform: translateY(0) translateX(0) rotate(-5deg); }
+    100% { transform: translateY(-30px) translateX(-20px) rotate(5deg); }
+}
+
+
+/* Desktop - Split Layout */
+@media only screen and (min-width: 64rem) {
+    #hero-143 {
+        .cs-container {
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: left;
+            align-items: center; /* Keeps image and text perfectly centered to each other */
+        }
+        .cs-content {
+            text-align: left;
+            align-items: flex-start;
+            width: 45%;
+            flex: none;
+        }
+        .cs-button-group {
+            justify-content: flex-start;
+        }
+        .cs-picture {
+            width: 50%;
+            max-width: clamp(500px, 45vw, 800px); /* Forces the image to the right correctly */
+            margin: 0;
         }
     }
 }
+
 
 /*-- -------------------------- -->
 <---         Services           -->
@@ -327,6 +317,13 @@
                 margin-bottom: 0;
             }
         }
+    }
+}
+
+/* Disable the overlapping negative margin on desktop */
+@media only screen and (min-width: 48rem) {
+    #h-services-143 .cs-card-group {
+        margin-top: 0 !important;
     }
 }
 

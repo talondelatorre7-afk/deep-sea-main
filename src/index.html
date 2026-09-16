@@ -18,64 +18,57 @@ tags: "sitemap"
     {% else %}
         <link rel="stylesheet" href="/assets/css/local.css" />
     {% endif %}
-
-    <style>
-        /* This ensures the video looks perfect right inside this file */
-        #hero-143 .cs-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        #hero-143 .cs-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5); /* 50% dark overlay to make text pop */
-            z-index: 1;
-        }
-
-        #hero-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
 {% endblock %}
 
 {% block body %}
+    <!-- STATIC DEEP OCEAN HERO (Dark Mode Permanent) -->
+    <section id="hero-143">
+        <!-- Deep Ocean Background Elements -->
+        <div class="cs-ocean-bg">
+            <!-- Tiny Infrequent Bubbles -->
+            <div class="cs-bubble cs-bubble-1"></div>
+            <div class="cs-bubble cs-bubble-2"></div>
+            <div class="cs-bubble cs-bubble-3"></div>
+            <div class="cs-bubble cs-bubble-4"></div>
+            <div class="cs-bubble cs-bubble-5"></div>
+            <div class="cs-bubble cs-bubble-6"></div>
+            <div class="cs-bubble cs-bubble-7"></div>
+            
+            <!-- Standard Image Tags for easy SVG swapping -->
+            <!-- Just upload your SVGs to /assets/svgs/ and change the file names below! -->
+            <img class="cs-floating-svg cs-sub" src="/assets/svgs/sub.svg" alt="Submarine Background" aria-hidden="true" loading="eager" decoding="async">
+            <img class="cs-floating-svg cs-diver" src="/assets/svgs/diver.svg" alt="Diver Background" aria-hidden="true" loading="eager" decoding="async">
+            <img class="cs-floating-svg cs-fish" src="/assets/svgs/fish.svg" alt="Fish Background" aria-hidden="true" loading="eager" decoding="async">
+        </div>
+
+        <div class="cs-container">
+            <!-- Left Side Text Content -->
+            <div class="cs-content">
+                <span class="cs-topper">Now Serving Chino Hills</span>
+                <h1 class="cs-title">
+                    Cinema Grade Websites. <br> Built to Convert.
+                </h1>
+                <p class="cs-text">
+                    Most websites are slow and outdated. We build high performance platforms that combine premium video production with lightning-fast load speeds. Get a world class digital presence starting at just $197/mo.
+                </p>
+                <div class="cs-button-group">
+                    <a href="/contact/" class="cs-button-solid">Get Started Today</a>
+                </div>
+            </div>
+
+            <!-- Right Side Graphic (Fixed Desktop Split Layout) -->
+            <picture class="cs-picture">
+                <source srcset="{% getUrl '/assets/images/mock2.webp' | resize({ width: auto, height: auto }) | webp %}" type="image/webp">
+                <img src="{% getUrl '/assets/images/mock2.webp' | resize({ width: 1044, height: 1162 }) | webp %}" alt="Moreno's Detailing website mockup on laptop and mobile" width="1044" height="1162" loading="eager" decoding="async">
+            </picture>
+        </div>
+    </section>
+
 <!-- ============================================ -->
 <!--              UNIVERSAL SPACER                -->
 <!-- ============================================ -->
-<div style="margin-top: 0.5rem; margin-bottom: 0rem; position: relative; z-index: 10;">
+<div style="margin-top: 3.9rem; margin-bottom: 0rem; position: relative; z-index: 10;">
 </div>
-    <section id="hero-143">
-        <div class="cs-container">
-            <span class="cs-topper">Now Serving Chino Hills</span>
-            <h1 class="cs-title">
-                Cinema Grade Websites. <br> Built to Convert.
-            </h1>
-            <p class="cs-text">
-                Most websites are slow and outdated. We build high performance platforms that combine premium video production with lightning-fast load speeds. Get a world class digital presence starting at just $197/mo.
-            </p>
-            <div class="cs-button-group">
-                <a href="/contact/" class="cs-button-solid">Get Started Today</a>
-            </div>
-</div>
-
-        <div class="cs-background">
-            <video autoplay muted loop playsinline id="hero-video">
-                <source src="/assets/images/hero-main.mp4" type="video/mp4">
-            </video>
-        </div>
-    </section>
 
     <section id="h-services-143">
         <ul class="cs-card-group">
